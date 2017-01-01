@@ -2,6 +2,8 @@
 
 基于蒲公英的应用分发工具 —— QA宝
 
+![demo](./WechatIMG393.jpeg)
+
 ### 用法
 
 1、修改 ```PgyerModule``` 中的参数
