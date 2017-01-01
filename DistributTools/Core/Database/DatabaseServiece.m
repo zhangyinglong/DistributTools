@@ -1,9 +1,9 @@
 //
 //  DatabaseServiece.m
-//  PuhuiDownloader
+//  DistributTools
 //
 //  Created by zhangyinglong on 16/1/16.
-//  Copyright © 2016年 普惠金融. All rights reserved.
+//  Copyright © 2016年 ChinaHR. All rights reserved.
 //
 
 #import "DatabaseServiece.h"
