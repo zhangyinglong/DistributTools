@@ -11,6 +11,5 @@
 #import "GlobalMacro.h"
 #import "SynthesizeSingleton.h"
 #import "Serviece.h"
-#import "DataModel.h"
 
 #import "PPDragDropBadgeView.h"

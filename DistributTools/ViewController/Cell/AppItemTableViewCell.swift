@@ -17,7 +17,22 @@ let textDefaultColor: UIColor = UIColor(red: 89/255.0, green: 89/255.0, blue: 89
 
 class AppItemTableViewCell: UITableViewCell {
 
-    internal var appItemModel: AppItemModel!
+    internal var appInfo: AppInfo? {
+        didSet {
+            guard let info = appInfo else { return }
+            
+            let url = PgyerModule.image_host + info.appIcon
+            appIcon.yy_setImage(with: URL(string: url)!, placeholder: UIImage(named: "logo"))
+            appName.text = info.appName + " V" + info.appVersion
+            appCreateTime.text = info.appCreated
+            appContent.text = info.appDescription.isEmpty ? "这家伙很懒，什么也没留下" : info.appDescription
+//            badgeView.isHidden = !appItemModel.isNewVersion
+//            badgeView.dragdropCompletion = { () -> Void in
+//                UserDefaults.standard.set(appItemModel.appUpdateModel!.appBuildVersion, forKey: (appItemModel.appUpdateModel?.id)!)
+//            }
+
+        }
+    }
 
     internal lazy var appIcon: UIImageView = {
         var appIcon: UIImageView = UIImageView(frame: CGRect(x: left_offset, y: left_offset, width: iconSize, height: iconSize))
@@ -57,13 +72,14 @@ class AppItemTableViewCell: UITableViewCell {
     }()
 
     private var appEnterPriseVersion: Bool {
-        get {
-            if self.appItemModel != nil {
-                return self.appItemModel.appUpdateModel.appIdentifier.contains(AppIdentifierModule.enterprise_appIdentifier)
-            } else {
-                return false
-            }
-        }
+        return false
+//        get {
+//            if let appInfo = self.appInfo {
+//                return (appInfo.appUpdateModel?.id.contains(AppIdentifierModule.enterprise_appIdentifier))!
+//            } else {
+//                return false
+//            }
+//        }
     }
 
     private lazy var appType: UILabel = {

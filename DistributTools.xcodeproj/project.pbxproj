@@ -27,15 +27,25 @@
 		FC13B06D1E17DEF600F72138 /* AppDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC13B0691E17DEF600F72138 /* AppDetailViewController.swift */; };
 		FC13B06E1E17DEF600F72138 /* IOSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC13B06A1E17DEF600F72138 /* IOSViewController.swift */; };
 		FC13B06F1E17DEF600F72138 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC13B06B1E17DEF600F72138 /* RootViewController.swift */; };
+		FC1AE7961ED95C9800E90AB8 /* CachedURLResponse+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1AE7951ED95C9800E90AB8 /* CachedURLResponse+ObjectMapper.swift */; };
+		FC1AE7981ED964BD00E90AB8 /* TargetTypeEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1AE7971ED964BD00E90AB8 /* TargetTypeEx.swift */; };
+		FC1AE79A1ED98A8C00E90AB8 /* Response+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1AE7991ED98A8C00E90AB8 /* Response+ObjectMapper.swift */; };
 		FC44E61F1E18AE3900DBE8A7 /* DGRunkeeperSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC44E61E1E18AE3900DBE8A7 /* DGRunkeeperSwitch.swift */; };
 		FC44E6211E18BAFE00DBE8A7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = FC44E6201E18BAFE00DBE8A7 /* README.md */; };
+		FC4F2ADD1EDE766C0010FA26 /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4F2ADC1EDE766C0010FA26 /* AppInfo.swift */; };
+		FC4F2ADF1EDE8F6C0010FA26 /* AppInfoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4F2ADE1EDE8F6C0010FA26 /* AppInfoList.swift */; };
+		FC4F2AE11EDE92DF0010FA26 /* AsyncHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4F2AE01EDE92DF0010FA26 /* AsyncHelper.swift */; };
+		FC8415B71E6F0BCA00E57F66 /* DispatchQueueEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8415B61E6F0BCA00E57F66 /* DispatchQueueEx.swift */; };
+		FC8415B91E6F0DC600E57F66 /* AppItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8415B81E6F0DC600E57F66 /* AppItemModel.swift */; };
+		FC8415BB1E6F0E8200E57F66 /* IdentifyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8415BA1E6F0E8200E57F66 /* IdentifyProtocol.swift */; };
+		FC8415BE1E6FBA4700E57F66 /* AppUpdateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8415BD1E6FBA4700E57F66 /* AppUpdateModel.swift */; };
+		FC8415C01E6FF29E00E57F66 /* DistributToolsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8415BF1E6FF29E00E57F66 /* DistributToolsError.swift */; };
+		FC90B44F1E77DC3F007158AC /* PgyerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC90B44E1E77DC3F007158AC /* PgyerService.swift */; };
 		FCE3021B1E160C1100B0F103 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE3021A1E160C1100B0F103 /* AppDelegate.swift */; };
 		FCE302201E160C1100B0F103 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCE3021E1E160C1100B0F103 /* Main.storyboard */; };
 		FCE302221E160C1100B0F103 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCE302211E160C1100B0F103 /* Assets.xcassets */; };
 		FCE302301E160C1100B0F103 /* DistributToolsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE3022F1E160C1100B0F103 /* DistributToolsTests.swift */; };
 		FCE3023B1E160C1100B0F103 /* DistributToolsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE3023A1E160C1100B0F103 /* DistributToolsUITests.swift */; };
-		FCE302501E1637D300B0F103 /* AppItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FCE3024A1E1637D300B0F103 /* AppItemModel.m */; };
-		FCE302511E1637D300B0F103 /* AppUpdateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FCE3024C1E1637D300B0F103 /* AppUpdateModel.m */; };
 		FCE3025C1E16382C00B0F103 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FCE302561E16382C00B0F103 /* BaseModel.m */; };
 		FCE3025D1E16382C00B0F103 /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = FCE302581E16382C00B0F103 /* Database.m */; };
 		FCE3025E1E16382C00B0F103 /* DatabaseServiece.m in Sources */ = {isa = PBXBuildFile; fileRef = FCE3025A1E16382C00B0F103 /* DatabaseServiece.m */; };
@@ -44,7 +54,7 @@
 		FCE302661E163B2B00B0F103 /* libssl-sqlcipher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE302631E163B2B00B0F103 /* libssl-sqlcipher.a */; };
 		FCE3026C1E163C3C00B0F103 /* AppInformationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE302681E163C3C00B0F103 /* AppInformationService.swift */; };
 		FCE3026D1E163C3C00B0F103 /* ShareServiece.m in Sources */ = {isa = PBXBuildFile; fileRef = FCE3026B1E163C3C00B0F103 /* ShareServiece.m */; };
-		FCE3026F1E163CEE00B0F103 /* RACHttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE3026E1E163CEE00B0F103 /* RACHttpClient.swift */; };
+		FCE3026F1E163CEE00B0F103 /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE3026E1E163CEE00B0F103 /* HttpClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,8 +104,20 @@
 		FC13B0691E17DEF600F72138 /* AppDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDetailViewController.swift; sourceTree = "<group>"; };
 		FC13B06A1E17DEF600F72138 /* IOSViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IOSViewController.swift; sourceTree = "<group>"; };
 		FC13B06B1E17DEF600F72138 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		FC1AE7951ED95C9800E90AB8 /* CachedURLResponse+ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CachedURLResponse+ObjectMapper.swift"; sourceTree = "<group>"; };
+		FC1AE7971ED964BD00E90AB8 /* TargetTypeEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetTypeEx.swift; sourceTree = "<group>"; };
+		FC1AE7991ED98A8C00E90AB8 /* Response+ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Response+ObjectMapper.swift"; sourceTree = "<group>"; };
 		FC44E61E1E18AE3900DBE8A7 /* DGRunkeeperSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DGRunkeeperSwitch.swift; sourceTree = "<group>"; };
 		FC44E6201E18BAFE00DBE8A7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		FC4F2ADC1EDE766C0010FA26 /* AppInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
+		FC4F2ADE1EDE8F6C0010FA26 /* AppInfoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfoList.swift; sourceTree = "<group>"; };
+		FC4F2AE01EDE92DF0010FA26 /* AsyncHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncHelper.swift; sourceTree = "<group>"; };
+		FC8415B61E6F0BCA00E57F66 /* DispatchQueueEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchQueueEx.swift; sourceTree = "<group>"; };
+		FC8415B81E6F0DC600E57F66 /* AppItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppItemModel.swift; sourceTree = "<group>"; };
+		FC8415BA1E6F0E8200E57F66 /* IdentifyProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentifyProtocol.swift; sourceTree = "<group>"; };
+		FC8415BD1E6FBA4700E57F66 /* AppUpdateModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUpdateModel.swift; sourceTree = "<group>"; };
+		FC8415BF1E6FF29E00E57F66 /* DistributToolsError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistributToolsError.swift; sourceTree = "<group>"; };
+		FC90B44E1E77DC3F007158AC /* PgyerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PgyerService.swift; sourceTree = "<group>"; };
 		FCE302171E160C1100B0F103 /* DistributTools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DistributTools.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCE3021A1E160C1100B0F103 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCE3021F1E160C1100B0F103 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -107,11 +129,6 @@
 		FCE302361E160C1100B0F103 /* DistributToolsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DistributToolsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCE3023A1E160C1100B0F103 /* DistributToolsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistributToolsUITests.swift; sourceTree = "<group>"; };
 		FCE3023C1E160C1100B0F103 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FCE302491E1637D300B0F103 /* AppItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppItemModel.h; sourceTree = "<group>"; };
-		FCE3024A1E1637D300B0F103 /* AppItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppItemModel.m; sourceTree = "<group>"; };
-		FCE3024B1E1637D300B0F103 /* AppUpdateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUpdateModel.h; sourceTree = "<group>"; };
-		FCE3024C1E1637D300B0F103 /* AppUpdateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUpdateModel.m; sourceTree = "<group>"; };
-		FCE3024D1E1637D300B0F103 /* DataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
 		FCE302551E16382C00B0F103 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
 		FCE302561E16382C00B0F103 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
 		FCE302571E16382C00B0F103 /* Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Database.h; sourceTree = "<group>"; };
@@ -127,7 +144,7 @@
 		FCE302691E163C3C00B0F103 /* Serviece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Serviece.h; sourceTree = "<group>"; };
 		FCE3026A1E163C3C00B0F103 /* ShareServiece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareServiece.h; sourceTree = "<group>"; };
 		FCE3026B1E163C3C00B0F103 /* ShareServiece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareServiece.m; sourceTree = "<group>"; };
-		FCE3026E1E163CEE00B0F103 /* RACHttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RACHttpClient.swift; sourceTree = "<group>"; };
+		FCE3026E1E163CEE00B0F103 /* HttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
 		FCE302A41E16418D00B0F103 /* DistributTools-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DistributTools-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -188,12 +205,16 @@
 		FC13B0391E1650C400F72138 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				FC1AE7991ED98A8C00E90AB8 /* Response+ObjectMapper.swift */,
 				FC13B0651E179DC100F72138 /* NSTimerEx.swift */,
 				FC13B03A1E1650C400F72138 /* StringEx.swift */,
 				FC13B03B1E1650C400F72138 /* UIDeviceEx.swift */,
 				FC13B03C1E1650C400F72138 /* UIViewController+Base.swift */,
 				FC13B03D1E1650C400F72138 /* UIViewEx.swift */,
 				FC13B03E1E1650C400F72138 /* Utility.swift */,
+				FC8415B61E6F0BCA00E57F66 /* DispatchQueueEx.swift */,
+				FC1AE7951ED95C9800E90AB8 /* CachedURLResponse+ObjectMapper.swift */,
+				FC1AE7971ED964BD00E90AB8 /* TargetTypeEx.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -335,11 +356,11 @@
 		FCE302481E1637D300B0F103 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				FCE3024D1E1637D300B0F103 /* DataModel.h */,
-				FCE302491E1637D300B0F103 /* AppItemModel.h */,
-				FCE3024A1E1637D300B0F103 /* AppItemModel.m */,
-				FCE3024B1E1637D300B0F103 /* AppUpdateModel.h */,
-				FCE3024C1E1637D300B0F103 /* AppUpdateModel.m */,
+				FC8415BA1E6F0E8200E57F66 /* IdentifyProtocol.swift */,
+				FC8415B81E6F0DC600E57F66 /* AppItemModel.swift */,
+				FC8415BD1E6FBA4700E57F66 /* AppUpdateModel.swift */,
+				FC4F2ADC1EDE766C0010FA26 /* AppInfo.swift */,
+				FC4F2ADE1EDE8F6C0010FA26 /* AppInfoList.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -383,11 +404,14 @@
 		FCE302671E163C3C00B0F103 /* Serviece */ = {
 			isa = PBXGroup;
 			children = (
-				FCE3026E1E163CEE00B0F103 /* RACHttpClient.swift */,
+				FCE3026E1E163CEE00B0F103 /* HttpClient.swift */,
 				FCE302681E163C3C00B0F103 /* AppInformationService.swift */,
 				FCE302691E163C3C00B0F103 /* Serviece.h */,
 				FCE3026A1E163C3C00B0F103 /* ShareServiece.h */,
 				FCE3026B1E163C3C00B0F103 /* ShareServiece.m */,
+				FC8415BF1E6FF29E00E57F66 /* DistributToolsError.swift */,
+				FC90B44E1E77DC3F007158AC /* PgyerService.swift */,
+				FC4F2AE01EDE92DF0010FA26 /* AsyncHelper.swift */,
 			);
 			path = Serviece;
 			sourceTree = "<group>";
@@ -469,7 +493,7 @@
 				TargetAttributes = {
 					FCE302161E160C1100B0F103 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 33SWE96Z9N;
+						DevelopmentTeam = 57NQC2SA65;
 						ProvisioningStyle = Automatic;
 					};
 					FCE3022A1E160C1100B0F103 = {
@@ -591,7 +615,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		7655E4CB4E6AD228E9A3D7F3 /* [CP] Check Pods Manifest.lock */ = {
@@ -606,7 +630,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		A3843662D9015ECDECF84BE6 /* [CP] Embed Pods Frameworks */ = {
@@ -651,7 +675,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		FDC58F8867AFF228D4F2965A /* [CP] Copy Pods Resources */ = {
@@ -676,32 +700,42 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC8415B91E6F0DC600E57F66 /* AppItemModel.swift in Sources */,
+				FC8415B71E6F0BCA00E57F66 /* DispatchQueueEx.swift in Sources */,
+				FC8415C01E6FF29E00E57F66 /* DistributToolsError.swift in Sources */,
 				FC13B04D1E16C79E00F72138 /* AppItemTableViewCell.swift in Sources */,
 				FCE3025E1E16382C00B0F103 /* DatabaseServiece.m in Sources */,
-				FCE302511E1637D300B0F103 /* AppUpdateModel.m in Sources */,
+				FC90B44F1E77DC3F007158AC /* PgyerService.swift in Sources */,
+				FC8415BE1E6FBA4700E57F66 /* AppUpdateModel.swift in Sources */,
 				FC13B06D1E17DEF600F72138 /* AppDetailViewController.swift in Sources */,
 				FC44E61F1E18AE3900DBE8A7 /* DGRunkeeperSwitch.swift in Sources */,
 				FC13B06F1E17DEF600F72138 /* RootViewController.swift in Sources */,
+				FC1AE7961ED95C9800E90AB8 /* CachedURLResponse+ObjectMapper.swift in Sources */,
 				FC13B06C1E17DEF600F72138 /* AndroidViewController.swift in Sources */,
 				FC13B06E1E17DEF600F72138 /* IOSViewController.swift in Sources */,
 				FC13B05B1E16CB7900F72138 /* PRTweenTimingFunctions.m in Sources */,
-				FCE302501E1637D300B0F103 /* AppItemModel.m in Sources */,
+				FC8415BB1E6F0E8200E57F66 /* IdentifyProtocol.swift in Sources */,
 				FC13B05A1E16CB7900F72138 /* PRTween.m in Sources */,
+				FC1AE7981ED964BD00E90AB8 /* TargetTypeEx.swift in Sources */,
 				FC13B0601E16CED600F72138 /* DGElasticPullToRefreshLoadingViewBall.swift in Sources */,
 				FC13B0421E1650C400F72138 /* UIViewEx.swift in Sources */,
 				FC13B0431E1650C400F72138 /* Utility.swift in Sources */,
 				FCE3025C1E16382C00B0F103 /* BaseModel.m in Sources */,
 				FC44E6211E18BAFE00DBE8A7 /* README.md in Sources */,
+				FC4F2AE11EDE92DF0010FA26 /* AsyncHelper.swift in Sources */,
 				FC13B03F1E1650C400F72138 /* StringEx.swift in Sources */,
 				FC13B0411E1650C400F72138 /* UIViewController+Base.swift in Sources */,
-				FCE3026F1E163CEE00B0F103 /* RACHttpClient.swift in Sources */,
+				FC4F2ADD1EDE766C0010FA26 /* AppInfo.swift in Sources */,
+				FCE3026F1E163CEE00B0F103 /* HttpClient.swift in Sources */,
 				FCE3025D1E16382C00B0F103 /* Database.m in Sources */,
 				FCE3026C1E163C3C00B0F103 /* AppInformationService.swift in Sources */,
 				FC13B05F1E16CED600F72138 /* BallView.swift in Sources */,
 				FC13B0661E179DC100F72138 /* NSTimerEx.swift in Sources */,
 				FC13B0591E16CB7900F72138 /* PPDragDropBadgeView.m in Sources */,
+				FC4F2ADF1EDE8F6C0010FA26 /* AppInfoList.swift in Sources */,
 				FCE3026D1E163C3C00B0F103 /* ShareServiece.m in Sources */,
 				FC13B0401E1650C400F72138 /* UIDeviceEx.swift in Sources */,
+				FC1AE79A1ED98A8C00E90AB8 /* Response+ObjectMapper.swift in Sources */,
 				FCE3021B1E160C1100B0F103 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -850,14 +884,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				DEVELOPMENT_TEAM = 33SWE96Z9N;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 57NQC2SA65;
 				INFOPLIST_FILE = DistributTools/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/DistributTools/Core/Database/Sqlcipher",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.myjob.DistributTools;
+				PRODUCT_BUNDLE_IDENTIFIER = chat.meme.inke;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -869,14 +904,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				DEVELOPMENT_TEAM = 33SWE96Z9N;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 57NQC2SA65;
 				INFOPLIST_FILE = DistributTools/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/DistributTools/Core/Database/Sqlcipher",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.myjob.DistributTools;
+				PRODUCT_BUNDLE_IDENTIFIER = chat.meme.inke;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

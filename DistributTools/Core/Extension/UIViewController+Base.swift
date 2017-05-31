@@ -11,6 +11,7 @@ import Material
 import VCMaterialDesignIcons
 import ICDMaterialActivityIndicatorView
 import MarqueeLabel
+import SafariServices
 
 public extension UIViewController {
 
@@ -105,6 +106,10 @@ public extension UIViewController {
         self.present(alert, animated: true)
     }
     
+    public func rootNavigationController() -> UINavigationController {
+        return (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController as! UINavigationController
+    }
+    
     public func back() {
         if self.navigationController != nil {
             _ = self.navigationController?.popViewController(animated: true)
@@ -113,4 +118,18 @@ public extension UIViewController {
         }
     }
 
+}
+
+extension UIViewController: SFSafariViewControllerDelegate {
+    
+    func openSafari(url: URL) {
+        let webVC = SFSafariViewController(url: url)
+        webVC.delegate = self
+        self.present(webVC, animated: true, completion: nil)
+    }
+    
+    public func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
 }
