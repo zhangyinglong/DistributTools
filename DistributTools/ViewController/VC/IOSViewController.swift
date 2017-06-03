@@ -29,8 +29,9 @@ class IOSViewController: UIViewController {
         tableView.backgroundColor = UIColor.clear
         tableView.showsVerticalScrollIndicator = false;
         tableView.separatorStyle = UITableViewCellSeparatorStyle.none
-        tableView.delegate = self;
-        tableView.dataSource = self
+        tableView.rowHeight =  AppItemTableViewCell.CellHeight
+//        tableView.delegate = self;
+//        tableView.dataSource = self
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
         self.view.addSubview(tableView)
@@ -48,14 +49,14 @@ class IOSViewController: UIViewController {
         
         let loadingView = DGElasticPullToRefreshLoadingViewBall();
         tableView.dg_addPullToRefreshWithActionHandler({ [weak self] () -> Void in
-            self!.fetchAppList()
-            self!.tableView.dg_stopLoading()
+            self?.fetchAppList()
+            self?.tableView.dg_stopLoading()
         }, loadingView: loadingView)
         tableView.dg_setPullToRefreshBackgroundColor(tableView.backgroundColor!)
         tableView.dg_setPullToRefreshFillColor(Color.lightBlue.lighten1)
 
         self.activityView.top -= 150
-        self.fetchAppList()
+        fetchAppList()
     }
 
     fileprivate func fetchAppList() {

@@ -11,6 +11,7 @@ import ObjectMapper
 import AlamofireObjectMapper
 import SwiftyJSON
 import Dispatch
+import RxSwift
 
 struct PgyerModule {
     public static let downloadUrl: String = "http://www.pgyer.com/FLhK"
@@ -297,4 +298,65 @@ extension PgyerAPI {
         }
     }
     
+}
+
+extension PgyerAPI {
+    
+#if DEBUG
+    static let rx_provider = RxMoyaProvider<PgyerAPI>(plugins: [NetworkLoggerPlugin(verbose: true)])
+#else
+    static let rx_provider = RxMoyaProvider<PgyerAPI>(plugins: [NetworkLoggerPlugin(verbose: false)])
+#endif
+    
+    private static let disposeBag = DisposeBag()
+    private static let queue = DispatchQueue(label: "PgyerAPI")
+    
+//    static func rx_request<T: Mappable>(_ token: PgyerAPI,
+//                           success successClosure: @escaping (T) -> Void,
+//                           failure failureClosure: @escaping (DistributToolsError) -> Void)
+//    {
+//        rx_provider.request(token)
+//            .filterSuccessfulStatusCodes()
+//            .mapJSON().subscribe(onNext: { reps in
+//                let JSON = reps as! NSDictionary
+//                let code = JSON["code"] as! Int64
+//                let message = JSON["message"] as! String
+//                let data = JSON["data"]
+//                if code == Int64(0) {
+//                    // ORM 转换
+//                    if let object = Mapper<T>().map(JSONObject: data) {
+//                        successClosure(object)
+//                    } else {
+//                        failureClosure(DistributToolsError.error(code: code, reason: message))
+//                    }
+//                } else {
+//                    failureClosure(DistributToolsError.error(code: code, reason: message))
+//                }
+//            }, onError: { error in
+//                failureClosure(DistributToolsError.error(code: DistributToolsErrorCode.netError.rawValue, reason: error.localizedDescription))
+//            }, onCompleted: { 
+//                
+//            }, onDisposed: { 
+//                
+//            }).addDisposableTo(disposeBag)
+//    }
+    
+    static func rx_request<T: Mappable>(_ token: PgyerAPI) -> Observable<T> {
+        return rx_provider.request(token).filterSuccessfulStatusCodes().mapJSON().debug().mapObject(type: T.self)
+    }
+    
+    static func rx_requestArray<T: Mappable>(_ token: PgyerAPI) -> Observable<[T]> {
+        return rx_provider.request(token)
+            .filterSuccessfulStatusCodes()
+            .mapJSON()
+            .debug()
+            .mapArray(type: <#T##Mappable.Protocol#>)
+            .flatMap { item -> ObservableConvertibleType in
+            print(item)
+            return item
+        }
+        
+//        return rx_provider.request(token).filterSuccessfulStatusCodes().mapJSON().debug().mapArray(type: T.self)
+    }
+
 }

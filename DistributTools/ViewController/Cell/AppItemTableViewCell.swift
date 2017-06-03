@@ -17,6 +17,8 @@ let textDefaultColor: UIColor = UIColor(red: 89/255.0, green: 89/255.0, blue: 89
 
 class AppItemTableViewCell: UITableViewCell {
 
+    static let CellHeight: CGFloat = 100.0
+    
     internal var appInfo: AppInfo? {
         didSet {
             guard let info = appInfo else { return }

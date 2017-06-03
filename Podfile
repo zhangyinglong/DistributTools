@@ -7,6 +7,7 @@ target 'DistributTools' do
 
   # Pods for DistributTools
   pod 'Moya'
+  pod 'Moya/RxSwift'
   pod 'AlamofireImage'
   pod 'AlamofireNetworkActivityIndicator'
   pod 'AlamofireObjectMapper'
@@ -14,6 +15,7 @@ target 'DistributTools' do
   pod 'SwiftyUserDefaults'
   pod 'SwiftyJSON'
   pod 'RxRealm'
+  pod 'RxCocoa'
   pod 'XCGLogger'
   
   pod 'lottie-ios'

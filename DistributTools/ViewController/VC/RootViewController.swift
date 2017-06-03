@@ -20,15 +20,11 @@ class RootViewController: UIViewController, UIScrollViewDelegate {
     
     private var isDragging: Bool = false
     
-    internal lazy var iosViewController: IOSViewController = {
-        var iosViewController: IOSViewController = IOSViewController()
-        return iosViewController
-    }()
+//    internal lazy var iosViewController: IOSViewController = IOSViewController()
     
-    internal lazy var androidViewController: AndroidViewController = {
-        var androidViewController: AndroidViewController = AndroidViewController()
-        return androidViewController
-    }()
+    internal lazy var iosViewController: RxTableViewController = RxTableViewController()
+    
+    internal lazy var androidViewController: AndroidViewController = AndroidViewController()
     
     private lazy var switchControl: DGRunkeeperSwitch = {
         var switchControl = DGRunkeeperSwitch(titles: ["iOS", "Android"])

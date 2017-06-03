@@ -12,6 +12,10 @@ import VCMaterialDesignIcons
 import ICDMaterialActivityIndicatorView
 import DZNEmptyDataSet
 import YYWebImage
+import RxSwift
+import RxCocoa
+
+private let disposeBag = DisposeBag()
 
 class AndroidViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
 
@@ -25,12 +29,12 @@ class AndroidViewController: UIViewController, UITableViewDataSource, UITableVie
                                                   width: self.view.width,
                                                   height: self.view.height - 70),
                                     style: UITableViewStyle.plain)
-        tableView.register(AppItemTableViewCell.classForCoder(), forCellReuseIdentifier: "AppItemTableViewCell")
+        tableView.register(AppItemTableViewCell.self, forCellReuseIdentifier: "AppItemTableViewCell")
         tableView.backgroundColor = UIColor.clear
         tableView.showsVerticalScrollIndicator = false;
         tableView.separatorStyle = UITableViewCellSeparatorStyle.none
-        tableView.delegate = self;
-        tableView.dataSource = self
+//        tableView.delegate = self;
+//        tableView.dataSource = self
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
         self.view.addSubview(tableView)
@@ -68,12 +72,33 @@ class AndroidViewController: UIViewController, UITableViewDataSource, UITableVie
         // Dispose of any resources that can be recreated.
     }
     
+//    func fetchAppList() {
+//        self.activityView.startAnimating()
+//        PgyerAPI.request(.listMyPublished(params: ["page":current_page]), success: { [weak self] (list: AppInfoList) -> Void in
+//            self?.activityView.stopAnimating()
+//            self?.dataSource = list.list.filter({ return $0.appType == .android })
+//            self?.tableView.reloadData()
+//        }) { [weak self] error in
+//            log.verbose(error)
+//            
+//            self?.activityView.stopAnimating()
+//            self?.failedLoading = true
+//        }
+//    }
+    
     func fetchAppList() {
         self.activityView.startAnimating()
         PgyerAPI.request(.listMyPublished(params: ["page":current_page]), success: { [weak self] (list: AppInfoList) -> Void in
             self?.activityView.stopAnimating()
-            self?.dataSource = list.list.filter({ return $0.appType == .android })
-            self?.tableView.reloadData()
+            
+            Observable.of(list.list.filter({ return $0.appType == .android })).bind(to: (self?.tableView.rx.items(cellIdentifier: "AppItemTableViewCell"))!) { index, model, cell in
+                (cell as! AppItemTableViewCell).appInfo = model
+                
+                let line: UIView = UIView(frame: CGRect(x: 0, y: cell.contentView.height - 0.5, width: cell.contentView.width, height: 0.5))
+                line.backgroundColor = UIColor(red: 213/255.0, green: 213/255.0, blue: 213/255.0, alpha: 1.0)
+                cell.contentView.addSubview(line)
+                cell.setNeedsLayout()
+            }.addDisposableTo(disposeBag)
         }) { [weak self] error in
             log.verbose(error)
             
@@ -94,7 +119,7 @@ class AndroidViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: AppItemTableViewCell = tableView.dequeueReusableCell(withIdentifier: "AppItemTableViewCell", for: indexPath as IndexPath) as! AppItemTableViewCell
-//        cell.appInfo = dataSource[indexPath.row]
+        cell.appInfo = dataSource[indexPath.row]
         let line: UIView = UIView(frame: CGRect(x: 0, y: cell.contentView.height - 0.5, width: cell.contentView.width, height: 0.5))
         line.backgroundColor = UIColor(red: 213/255.0, green: 213/255.0, blue: 213/255.0, alpha: 1.0)
         cell.contentView.addSubview(line)

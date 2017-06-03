@@ -13,11 +13,11 @@ public extension Response {
 
   /// Maps data received from the signal into an object which implements the Mappable protocol.
   /// If the conversion fails, the signal errors.
-	public func mapObject<T: BaseMappable>(_ type: T.Type, context: MapContext? = nil) throws -> T {
-		guard let object = Mapper<T>(context: context).map(JSONObject: try mapJSON()) else {
+  public func mapObject<T: BaseMappable>(_ type: T.Type, context: MapContext? = nil) throws -> T {
+      guard let object = Mapper<T>(context: context).map(JSONObject: try mapJSON()) else {
       throw MoyaError.jsonMapping(self)
     }
-   return object
+    return object
   }
 
   /// Maps data received from the signal into an array of objects which implement the Mappable

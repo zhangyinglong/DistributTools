@@ -7,7 +7,7 @@
 //
 
 import ObjectMapper
-import RealmSwift
+import RxSwift
 
 class AppInfoList: Mappable {
     
@@ -19,6 +19,14 @@ class AppInfoList: Mappable {
     
     func mapping(map: Map) {
         list <- map["list"]
+    }
+    
+}
+
+extension AppInfoList {
+    
+    public func sequence() -> Observable<[AppInfo]> {
+        return Observable.just(list)
     }
     
 }
