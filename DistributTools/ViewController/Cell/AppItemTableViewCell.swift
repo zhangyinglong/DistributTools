@@ -3,7 +3,7 @@
 //  DistributTools
 //
 //  Created by zhangyinglong on 16/1/8.
-//  Copyright © 2016年 ChinaHR. All rights reserved.
+//  Copyright © 2016年 zhang yinglong. All rights reserved.
 //
 
 import UIKit

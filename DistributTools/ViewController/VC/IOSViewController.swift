@@ -3,12 +3,11 @@
 //  DistributTools
 //
 //  Created by zhangyinglong on 16/1/8.
-//  Copyright © 2016年 ChinaHR. All rights reserved.
+//  Copyright © 2016年 zhang yinglong. All rights reserved.
 //
 
 import UIKit
 import Material
-import VCMaterialDesignIcons
 import ICDMaterialActivityIndicatorView
 import DZNEmptyDataSet
 import SafariServices
@@ -40,10 +39,6 @@ class IOSViewController: UIViewController {
     
     fileprivate var failedLoading: Bool = false
 
-    fileprivate lazy var activityView: ICDMaterialActivityIndicatorView = {
-        return self.getActivityIndicatorView()
-    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,20 +50,19 @@ class IOSViewController: UIViewController {
         tableView.dg_setPullToRefreshBackgroundColor(tableView.backgroundColor!)
         tableView.dg_setPullToRefreshFillColor(Color.lightBlue.lighten1)
 
-        self.activityView.top -= 150
         fetchAppList()
     }
 
     fileprivate func fetchAppList() {
-        self.activityView.startAnimating()
+        let hud = HUD.showLoading()
         PgyerAPI.request(.listMyPublished(params: ["page":current_page]), success: { [weak self] (list: AppInfoList) -> Void in
-            self?.activityView.stopAnimating()
+            hud.hide(animated: true)
             self?.dataSource = list.list.filter({ return $0.appType == .ios })
             self?.tableView.reloadData()
         }) { [weak self] error in
             log.verbose(error)
             
-            self?.activityView.stopAnimating()
+            hud.hide(animated: true)
             self?.failedLoading = true
         }
     }
@@ -103,16 +97,16 @@ extension IOSViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
         
         let appInfo = dataSource[indexPath.row]
-        self.activityView.startAnimating()
+        let hud = HUD.showLoading()
         PgyerAPI.request(.view(params: [ "aKey":appInfo.appKey]), success: { [weak self] (info: AppInfo) -> Void in
             log.debug("info = \(info)")
             
-            self?.activityView.stopAnimating()
+            hud.hide(animated: true)
             guard let url = info.shortcutUrl() else { return }
             self?.openSafari(url: url)
-        }) { [weak self] error in
+        }) { error in
             log.verbose(error)
-            self?.activityView.stopAnimating()
+            hud.hide(animated: true)
         }
         
 //        UserDefaults.standard.set(appDetailViewController.appItemModel!.appUpdateModel?.appBuildVersion,
@@ -138,9 +132,7 @@ extension IOSViewController: DZNEmptyDataSetSource {
     func buttonImage(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> UIImage! {
         guard !self.failedLoading else { return nil }
         
-        let m: VCMaterialDesignIcons = VCMaterialDesignIcons.icon(withCode: VCMaterialDesignIconCode.md_refresh.takeRetainedValue() as String, fontSize: 25)
-        m.addAttribute(NSForegroundColorAttributeName, value: Color.blue.lighten1)
-        return m.image()
+        return UIImage(named: "img_empty")
     }
     
 }

@@ -3,19 +3,18 @@
 //  DistributTools
 //
 //  Created by zhang yinglong on 2017/5/31.
-//  Copyright © 2017年 ChinaHR. All rights reserved.
+//  Copyright © 2017年 zhang yinglong. All rights reserved.
 //
 
 import ObjectMapper
-import RealmSwift
 
 enum AppType: String {
     case ios = "1"
     case android = "2"
 }
 
-class AppInfo: Object, Mappable, IdentifyProtocol {
-    
+struct AppInfo: Mappable, IdentifyProtocol {
+
     var id = ""
     var appBuildVersion = ""
     var appCreated = ""
@@ -34,11 +33,9 @@ class AppInfo: Object, Mappable, IdentifyProtocol {
     
     var isNeedUpdate = false
     
-    required convenience init?(map: Map){
-        self.init()
-    }
+    init?(map: Map) {}
     
-    func mapping(map: Map) {
+    mutating func mapping(map: Map) {
         id <- map["appIdentifier"]
         appBuildVersion <- map["appBuildVersion"]
         appCreated <- map["appCreated"]
@@ -54,6 +51,10 @@ class AppInfo: Object, Mappable, IdentifyProtocol {
         appVersionNo <- map["appVersionNo"]
         appShortcutUrl <- map["appShortcutUrl"]
         appQRCodeURL <- map["appQRCodeURL"]
+    }
+    
+    var description: String {
+        return ""
     }
     
     public func iconUrl() -> URL? {

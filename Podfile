@@ -6,38 +6,10 @@ target 'DistributTools' do
   use_frameworks!
 
   # Pods for DistributTools
-  pod 'Moya'
-  pod 'Moya/RxSwift'
-  pod 'AlamofireImage'
-  pod 'AlamofireNetworkActivityIndicator'
-  pod 'AlamofireObjectMapper'
-  pod 'Then'
-  pod 'SwiftyUserDefaults'
-  pod 'SwiftyJSON'
-  pod 'RxRealm'
-  pod 'RxCocoa'
-  pod 'XCGLogger'
-  
-  pod 'lottie-ios'
-  pod 'AFNetworking'
-  pod 'KeychainAccess'
-  pod 'YYModel'
-  pod 'YYImage'
-  pod 'YYWebImage'
-  pod 'Material'
-  pod 'Dispatch'
-  pod 'KeychainSwift'
-#  pod 'DGRunkeeperSwitch'
   pod 'DGElasticPullToRefresh'
-  pod 'SGActionView'
-  pod 'MarqueeLabel/Swift'
   pod 'MLTransition'
-  pod 'ICDMaterialActivityIndicatorView'
-  pod 'DZNEmptyDataSet'
-  pod 'VCMaterialDesignIcons'
-  pod 'WeChat_SDK_iOS'
+  pod 'WechatOpenSDK'
   pod 'Tencent_SDK'            # 腾讯SDK
-  
 
   target 'DistributToolsTests' do
     inherit! :search_paths

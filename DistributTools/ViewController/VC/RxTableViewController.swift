@@ -3,17 +3,15 @@
 //  DistributTools
 //
 //  Created by zhang yinglong on 2017/6/3.
-//  Copyright © 2017年 ChinaHR. All rights reserved.
+//  Copyright © 2017年 zhang yinglong. All rights reserved.
 //
 
 import UIKit
 import Material
-import VCMaterialDesignIcons
 import ICDMaterialActivityIndicatorView
 import DZNEmptyDataSet
 import SafariServices
 import RxSwift
-import RxCocoa
 
 private let disposeBag = DisposeBag()
 
@@ -24,10 +22,6 @@ class RxTableViewController: UITableViewController {
     fileprivate var failedLoading: Bool = false
     
     fileprivate var viewModel = AppListViewModel()
-    
-    fileprivate lazy var activityView: ICDMaterialActivityIndicatorView = {
-        return self.getActivityIndicatorView()
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,13 +44,12 @@ class RxTableViewController: UITableViewController {
         tableView.dg_setPullToRefreshBackgroundColor(tableView.backgroundColor!)
         tableView.dg_setPullToRefreshFillColor(Color.lightBlue.lighten1)
         
-        activityView.top -= 150
         fetchAppList()
 
-        viewModel.rx_apps.subscribe(onNext: { items in
-            print("items")
-            print(items)
-        }, onError: nil, onCompleted: nil, onDisposed: nil).addDisposableTo(disposeBag)
+//        viewModel.rx_apps.subscribe(onNext: { items in
+//            print("items")
+//            print(items)
+//        }, onError: nil, onCompleted: nil, onDisposed: nil).addDisposableTo(disposeBag)
         
 //        viewModel.loadData().bind(to: tableView.rx.items(cellIdentifier: "AppItemTableViewCell")) { index, model, cell in
 //            (cell as! AppItemTableViewCell).appInfo = model
@@ -116,9 +109,7 @@ extension RxTableViewController: DZNEmptyDataSetSource {
     func buttonImage(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> UIImage! {
         guard !self.failedLoading else { return nil }
         
-        let m: VCMaterialDesignIcons = VCMaterialDesignIcons.icon(withCode: VCMaterialDesignIconCode.md_refresh.takeRetainedValue() as String, fontSize: 25)
-        m.addAttribute(NSForegroundColorAttributeName, value: Color.blue.lighten1)
-        return m.image()
+        return UIImage(named: "img_empty")
     }
     
 }

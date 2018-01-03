@@ -3,15 +3,15 @@
 //  DistributTools
 //
 //  Created by zhangyinglong on 2016/12/30.
-//  Copyright © 2016年 ChinaHR. All rights reserved.
+//  Copyright © 2016年 zhang yinglong. All rights reserved.
 //
 
 import UIKit
 import Darwin
 import Alamofire
-import AlamofireNetworkActivityIndicator
 import XCGLogger
 import MLTransition
+import ZYLDataBase
 
 let log = XCGLogger.default
 
@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 break
             }
         }
-        NetworkActivityIndicatorManager.shared.isEnabled = true
+//        NetworkActivityIndicatorManager.shared.isEnabled = true
         return reachabilityManager
     }()
     

@@ -3,13 +3,11 @@
 //  DistributTools
 //
 //  Created by zhang yinglong on 2017/3/14.
-//  Copyright © 2017年 ChinaHR. All rights reserved.
+//  Copyright © 2017年 zhang yinglong. All rights reserved.
 //
 
 import Moya
 import ObjectMapper
-import AlamofireObjectMapper
-import SwiftyJSON
 import Dispatch
 import RxSwift
 
@@ -44,7 +42,7 @@ extension PgyerAPI: CustomStringConvertible {
 }
 
 extension PgyerAPI: TargetType {
-    
+
     public var baseURL: URL { return URL(string: "http://www.pgyer.com")! }
     
     public var path: String {
@@ -71,6 +69,10 @@ extension PgyerAPI: TargetType {
         case .getAppKeyByShortcut(_):
             return .post
         }
+    }
+    
+    public var headers: [String : String]? {
+        return nil
     }
     
     public var parameters: [String: Any]? {
@@ -101,16 +103,22 @@ extension PgyerAPI: TargetType {
     }
     
     public var task: Task {
-        switch self {
-        case .listMyPublished(_):
-            return .request
-        case .viewGroup(_):
-            return .request
-        case .view(_):
-            return .request
-        case .getAppKeyByShortcut(_):
-            return .request
+        if let parameters = parameters {
+            return .requestParameters(parameters: parameters, encoding: parameterEncoding)
+        } else {
+            return .requestPlain
         }
+        
+//        switch self {
+//        case .listMyPublished(_):
+//            return .request
+//        case .viewGroup(_):
+//            return .request
+//        case .view(_):
+//            return .request
+//        case .getAppKeyByShortcut(_):
+//            return .request
+//        }
     }
     
     public var sampleData: Data {
@@ -140,7 +148,7 @@ extension PgyerAPI {
     {
         if let reachabilityManager = AppDelegate.shared.reachabilityManager, reachabilityManager.isReachable {
             let tprovider = provider ?? PgyerProvider
-            tprovider.request(target, queue: queue) { event in
+            tprovider.request(target, callbackQueue: queue) { event in
                 switch event {
                 case let .success(response):
                     do {
@@ -223,7 +231,7 @@ extension PgyerAPI {
     {
         if let reachabilityManager = AppDelegate.shared.reachabilityManager, reachabilityManager.isReachable {
             let tprovider = provider ?? PgyerProvider
-            tprovider.request(target, queue: queue) { event in
+            tprovider.request(target, callbackQueue: queue) { event in
                 switch event {
                 case let .success(response):
                     do {
@@ -300,63 +308,64 @@ extension PgyerAPI {
     
 }
 
-extension PgyerAPI {
-    
-#if DEBUG
-    static let rx_provider = RxMoyaProvider<PgyerAPI>(plugins: [NetworkLoggerPlugin(verbose: true)])
-#else
-    static let rx_provider = RxMoyaProvider<PgyerAPI>(plugins: [NetworkLoggerPlugin(verbose: false)])
-#endif
-    
-    private static let disposeBag = DisposeBag()
-    private static let queue = DispatchQueue(label: "PgyerAPI")
-    
-//    static func rx_request<T: Mappable>(_ token: PgyerAPI,
-//                           success successClosure: @escaping (T) -> Void,
-//                           failure failureClosure: @escaping (DistributToolsError) -> Void)
-//    {
-//        rx_provider.request(token)
-//            .filterSuccessfulStatusCodes()
-//            .mapJSON().subscribe(onNext: { reps in
-//                let JSON = reps as! NSDictionary
-//                let code = JSON["code"] as! Int64
-//                let message = JSON["message"] as! String
-//                let data = JSON["data"]
-//                if code == Int64(0) {
-//                    // ORM 转换
-//                    if let object = Mapper<T>().map(JSONObject: data) {
-//                        successClosure(object)
-//                    } else {
-//                        failureClosure(DistributToolsError.error(code: code, reason: message))
-//                    }
-//                } else {
-//                    failureClosure(DistributToolsError.error(code: code, reason: message))
-//                }
-//            }, onError: { error in
-//                failureClosure(DistributToolsError.error(code: DistributToolsErrorCode.netError.rawValue, reason: error.localizedDescription))
-//            }, onCompleted: { 
-//                
-//            }, onDisposed: { 
-//                
-//            }).addDisposableTo(disposeBag)
+//extension PgyerAPI {
+//    
+//#if DEBUG
+//    static let rx_provider = RxMoyaProvider<PgyerAPI>(plugins: [NetworkLoggerPlugin(verbose: true)])
+//#else
+//    static let rx_provider = RxMoyaProvider<PgyerAPI>(plugins: [NetworkLoggerPlugin(verbose: false)])
+//#endif
+//    
+//    private static let disposeBag = DisposeBag()
+//    private static let queue = DispatchQueue(label: "PgyerAPI")
+//    
+////    static func rx_request<T: Mappable>(_ token: PgyerAPI,
+////                           success successClosure: @escaping (T) -> Void,
+////                           failure failureClosure: @escaping (DistributToolsError) -> Void)
+////    {
+////        rx_provider.request(token)
+////            .filterSuccessfulStatusCodes()
+////            .mapJSON().subscribe(onNext: { reps in
+////                let JSON = reps as! NSDictionary
+////                let code = JSON["code"] as! Int64
+////                let message = JSON["message"] as! String
+////                let data = JSON["data"]
+////                if code == Int64(0) {
+////                    // ORM 转换
+////                    if let object = Mapper<T>().map(JSONObject: data) {
+////                        successClosure(object)
+////                    } else {
+////                        failureClosure(DistributToolsError.error(code: code, reason: message))
+////                    }
+////                } else {
+////                    failureClosure(DistributToolsError.error(code: code, reason: message))
+////                }
+////            }, onError: { error in
+////                failureClosure(DistributToolsError.error(code: DistributToolsErrorCode.netError.rawValue, reason: error.localizedDescription))
+////            }, onCompleted: { 
+////                
+////            }, onDisposed: { 
+////                
+////            }).addDisposableTo(disposeBag)
+////    }
+//    
+//    static func rx_request<T: Mappable>(_ token: PgyerAPI) -> Observable<T> {
+//        return rx_provider.request(token).filterSuccessfulStatusCodes().mapJSON().debug().mapObject(type: T.self)
 //    }
-    
-    static func rx_request<T: Mappable>(_ token: PgyerAPI) -> Observable<T> {
-        return rx_provider.request(token).filterSuccessfulStatusCodes().mapJSON().debug().mapObject(type: T.self)
-    }
-    
-    static func rx_requestArray<T: Mappable>(_ token: PgyerAPI) -> Observable<[T]> {
-        return rx_provider.request(token)
-            .filterSuccessfulStatusCodes()
-            .mapJSON()
-            .debug()
-            .mapArray(type: <#T##Mappable.Protocol#>)
-            .flatMap { item -> ObservableConvertibleType in
-            print(item)
-            return item
-        }
-        
-//        return rx_provider.request(token).filterSuccessfulStatusCodes().mapJSON().debug().mapArray(type: T.self)
-    }
+//    
+//    static func rx_requestArray<T: Mappable>(_ token: PgyerAPI) -> Observable<[T]> {
+//        return rx_provider.request(token)
+//            .filterSuccessfulStatusCodes()
+//            .mapJSON()
+//            .debug()
+////            .mapArray(type: Mappable.Protocol)
+//            .flatMap { item -> ObservableConvertibleType in
+//            print(item)
+//            return item
+//        }
+//        
+////        return rx_provider.request(token).filterSuccessfulStatusCodes().mapJSON().debug().mapArray(type: T.self)
+//    }
+//
+//}
 
-}

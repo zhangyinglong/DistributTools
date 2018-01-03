@@ -3,7 +3,7 @@
 //  DistributTools
 //
 //  Created by zhang yinglong on 2017/6/3.
-//  Copyright © 2017年 ChinaHR. All rights reserved.
+//  Copyright © 2017年 zhang yinglong. All rights reserved.
 //
 
 import RxSwift
@@ -11,8 +11,8 @@ import ObjectMapper
 
 extension Observable {
     
-    func mapKeyPath(key: String) -> <#return type#> {
-        return
+    func mapKeyPath(key: String) -> Any {
+        return ""
     }
     
     func mapObject<T: Mappable>(type: T.Type) -> Observable<T> {

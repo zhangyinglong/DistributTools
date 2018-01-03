@@ -3,17 +3,15 @@
 //  DistributTools
 //
 //  Created by zhangyinglong on 16/1/8.
-//  Copyright © 2016年 ChinaHR. All rights reserved.
+//  Copyright © 2016年 zhang yinglong. All rights reserved.
 //
 
 import UIKit
 import Material
-import VCMaterialDesignIcons
 import ICDMaterialActivityIndicatorView
 import DZNEmptyDataSet
 import YYWebImage
 import RxSwift
-import RxCocoa
 
 private let disposeBag = DisposeBag()
 
@@ -42,10 +40,6 @@ class AndroidViewController: UIViewController, UITableViewDataSource, UITableVie
     }()
     
     private var failedLoading: Bool = false
-
-    private lazy var activityView: ICDMaterialActivityIndicatorView = {
-        return self.getActivityIndicatorView()
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +52,6 @@ class AndroidViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.dg_setPullToRefreshBackgroundColor(tableView.backgroundColor!)
         tableView.dg_setPullToRefreshFillColor(Color.lightBlue.lighten1)
         
-        self.activityView.top -= 150
         self.fetchAppList()
     }
     
@@ -87,22 +80,22 @@ class AndroidViewController: UIViewController, UITableViewDataSource, UITableVie
 //    }
     
     func fetchAppList() {
-        self.activityView.startAnimating()
+        let hud = HUD.showLoading()
         PgyerAPI.request(.listMyPublished(params: ["page":current_page]), success: { [weak self] (list: AppInfoList) -> Void in
-            self?.activityView.stopAnimating()
+            hud.hide(animated: true)
             
-            Observable.of(list.list.filter({ return $0.appType == .android })).bind(to: (self?.tableView.rx.items(cellIdentifier: "AppItemTableViewCell"))!) { index, model, cell in
-                (cell as! AppItemTableViewCell).appInfo = model
-                
-                let line: UIView = UIView(frame: CGRect(x: 0, y: cell.contentView.height - 0.5, width: cell.contentView.width, height: 0.5))
-                line.backgroundColor = UIColor(red: 213/255.0, green: 213/255.0, blue: 213/255.0, alpha: 1.0)
-                cell.contentView.addSubview(line)
-                cell.setNeedsLayout()
-            }.addDisposableTo(disposeBag)
+//            Observable.of(list.list.filter({ return $0.appType == .android })).bind(to: (self?.tableView.rx.items(cellIdentifier: "AppItemTableViewCell"))!) { index, model, cell in
+//                (cell as! AppItemTableViewCell).appInfo = model
+//                
+//                let line: UIView = UIView(frame: CGRect(x: 0, y: cell.contentView.height - 0.5, width: cell.contentView.width, height: 0.5))
+//                line.backgroundColor = UIColor(red: 213/255.0, green: 213/255.0, blue: 213/255.0, alpha: 1.0)
+//                cell.contentView.addSubview(line)
+//                cell.setNeedsLayout()
+//            }.addDisposableTo(disposeBag)
         }) { [weak self] error in
             log.verbose(error)
             
-            self?.activityView.stopAnimating()
+            hud.hide(animated: true)
             self?.failedLoading = true
         }
     }
@@ -163,13 +156,9 @@ class AndroidViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func buttonImage(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> UIImage! {
-        guard !self.failedLoading else {
-            return nil
-        }
+        guard !self.failedLoading else { return nil }
         
-        let m: VCMaterialDesignIcons = VCMaterialDesignIcons.icon(withCode: VCMaterialDesignIconCode.md_refresh.takeRetainedValue() as String, fontSize: 25)
-        m.addAttribute(NSForegroundColorAttributeName, value: Color.blue.lighten1)
-        return m.image()
+        return UIImage(named: "img_empty")
     }
     
     // DZNEmptyDataSetDelegate

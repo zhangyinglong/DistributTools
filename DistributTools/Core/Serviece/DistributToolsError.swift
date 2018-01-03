@@ -3,10 +3,8 @@
 //  DistributTools
 //
 //  Created by zhang yinglong on 2017/3/8.
-//  Copyright © 2017年 ChinaHR. All rights reserved.
+//  Copyright © 2017年 zhang yinglong. All rights reserved.
 //
-
-import ObjectMapper
 
 enum DistributToolsErrorCode: Int64 {
     case success = 0

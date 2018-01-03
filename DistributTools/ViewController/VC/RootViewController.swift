@@ -3,7 +3,7 @@
 //  DistributTools
 //
 //  Created by zhangyinglong on 2016/12/30.
-//  Copyright © 2016年 ChinaHR. All rights reserved.
+//  Copyright © 2016年 zhang yinglong. All rights reserved.
 //
 
 import UIKit
@@ -20,9 +20,9 @@ class RootViewController: UIViewController, UIScrollViewDelegate {
     
     private var isDragging: Bool = false
     
-//    internal lazy var iosViewController: IOSViewController = IOSViewController()
+    internal lazy var iosViewController: IOSViewController = IOSViewController()
     
-    internal lazy var iosViewController: RxTableViewController = RxTableViewController()
+//    internal lazy var iosViewController: RxTableViewController = RxTableViewController()
     
     internal lazy var androidViewController: AndroidViewController = AndroidViewController()
     
@@ -56,7 +56,7 @@ class RootViewController: UIViewController, UIScrollViewDelegate {
     
     private lazy var infoBanner: MarqueeLabel = {
         let infoBanner: MarqueeLabel = MarqueeLabel(frame: CGRect(x: 0, y: self.navigationBarView.height, width: self.view.width, height: 28))
-        infoBanner.type = .continuous
+        infoBanner.marqueeType = MarqueeType.MLContinuous
 //        infoBanner.scrollRate = 35
         infoBanner.textAlignment = .center
         infoBanner.textColor = Color.white

@@ -3,12 +3,11 @@
 //  DistributTools
 //
 //  Created by zhangyinglong on 16/1/9.
-//  Copyright © 2016年 ChinaHR. All rights reserved.
+//  Copyright © 2016年 zhang yinglong. All rights reserved.
 //
 
 import UIKit
 import Material
-import VCMaterialDesignIcons
 import ICDMaterialActivityIndicatorView
 import MarqueeLabel
 import SafariServices
@@ -35,9 +34,9 @@ public extension UIViewController {
         navigationBarView.barStyle = .default
 
         // Title label.
-        let item: UINavigationItem = UINavigationItem(title: "")
-        item.navigationItem.titleLabel.textColor = Color.white
-        item.navigationItem.titleLabel.font = RobotoFont.regular(with: 20)
+        let item = UINavigationItem(title: "")
+//        item.navigationItem.titleLabel.textColor = Color.white
+//        item.navigationItem.titleLabel.font = RobotoFont.regular(with: 20)
         navigationBarView.pushItem(item, animated: true);
         
         view.addSubview(navigationBarView)
@@ -48,27 +47,6 @@ public extension UIViewController {
         Layout.height(parent: view, child: navigationBarView, height: 70)
 
         return navigationBarView
-    }
-
-    func getMaterialDesignIcon(code: String, fontSize: CGFloat) -> UIImage {
-        let m: VCMaterialDesignIcons = VCMaterialDesignIcons.icon(withCode: code, fontSize: fontSize)
-//        let hue: CGFloat = ( CGFloat(arc4random()%256) / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
-//        let saturation: CGFloat = ( CGFloat(arc4random()%128) / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
-//        let brightness: CGFloat = ( CGFloat(arc4random()%128) / 256.0 ) + 0.5;  //  0.5 to 1.0, away from black
-//        m.addAttribute(NSForegroundColorAttributeName, value: UIColor(hue: hue, saturation: saturation, brightness: brightness, alpha: 1))
-        m.addAttribute(NSForegroundColorAttributeName, value: Color.white)
-        return m.image()
-    }
-    
-    /// 获取activityIndicatorView
-    ///
-    /// - Returns: view
-    public func getActivityIndicatorView() -> ICDMaterialActivityIndicatorView {
-        let activityIndicatorView: ICDMaterialActivityIndicatorView = ICDMaterialActivityIndicatorView(frame: CGRect(x: (view.width - 50)/2, y: (view.height - 50)/2, width: 50, height: 50),
-            activityIndicatorStyle: ICDMaterialActivityIndicatorViewStyleMedium)
-        activityIndicatorView.color = Color.lightBlue.lighten1
-        view.addSubview(activityIndicatorView)
-        return activityIndicatorView
     }
 
     /**
