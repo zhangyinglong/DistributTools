@@ -53,10 +53,8 @@ class IOSViewController: UIViewController {
 
     fileprivate func fetchAppList() {
         let target = PgyerAPI.listMyPublished(params: ["page":current_page])
-        HttpClient<AppInfo>.requestArray(target) { [weak self] result in
-            defer {
-                self?.tableView.dg_stopLoading()
-            }
+       HttpClient<PgyerAPI, AppInfo>.requestArray(target) { [weak self] result in
+            defer { self?.tableView.dg_stopLoading() }
 
             switch result {
             case .success(let array):
@@ -99,15 +97,17 @@ extension IOSViewController: UITableViewDelegate {
         
         let appInfo = dataSource[indexPath.row]
         let hud = HUD.showLoading()
-        PgyerAPI.request(.view(params: [ "aKey":appInfo.appKey]), success: { [weak self] (info: AppInfo) -> Void in
-            log.debug("info = \(info)")
-            
-            hud.hide(animated: true)
-            guard let url = info.shortcutUrl() else { return }
-            self?.openSafari(url: url)
-        }) { error in
-            log.verbose(error)
-            hud.hide(animated: true)
+        let target = PgyerAPI.view(params: [ "aKey":appInfo.appKey])
+        HttpClient<PgyerAPI, AppInfo>.request(target) { [weak self] result in
+            defer { hud.hide(animated: true) }
+
+            switch result {
+            case .success(let info):
+                guard let url = info.shortcutUrl() else { return }
+                self?.openSafari(url: url)
+            case .failure(_):
+                break
+            }
         }
         
 //        UserDefaults.standard.set(appDetailViewController.appItemModel!.appUpdateModel?.appBuildVersion,

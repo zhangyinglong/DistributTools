@@ -32,6 +32,7 @@ public enum PgyerAPI {
 }
 
 extension PgyerAPI: CustomStringConvertible {
+    
     public var description: String {
         switch self {
             case .listMyPublished: return "listMyPublished"
@@ -40,6 +41,15 @@ extension PgyerAPI: CustomStringConvertible {
             case .getAppKeyByShortcut: return "getAppKeyByShortcut"
         }
     }
+    
+}
+
+extension PgyerAPI: HttpRequest {
+    
+    public var provider: Any {
+        return MoyaProvider<PgyerAPI>(plugins: [NetworkLoggerPlugin(verbose: true)])
+    }
+    
 }
 
 extension PgyerAPI: TargetType {
@@ -80,21 +90,13 @@ extension PgyerAPI: TargetType {
         var parameters: [String: Any] = [ "uKey":PgyerModule.uKey, "_api_key":PgyerModule.api_key ]
         switch self {
         case .listMyPublished(let params):
-            for (key, value) in params {
-                parameters[key] = value
-            }
+            params.forEach({ parameters[$0.key] = $0.value })
         case .viewGroup(let params):
-            for (key, value) in params {
-                parameters[key] = value
-            }
+            params.forEach({ parameters[$0.key] = $0.value })
         case .view(let params):
-            for (key, value) in params {
-                parameters[key] = value
-            }
+            params.forEach({ parameters[$0.key] = $0.value })
         case .getAppKeyByShortcut(let params):
-            for (key, value) in params {
-                parameters[key] = value
-            }
+            params.forEach({ parameters[$0.key] = $0.value })
         }
         return parameters
     }
@@ -122,180 +124,180 @@ extension PgyerAPI: TargetType {
     
 }
 
-extension PgyerAPI {
-
-#if DEBUG
-    static let PgyerProvider = MoyaProvider<PgyerAPI>(plugins: [NetworkLoggerPlugin(verbose: true)])
-#else
-    static let PgyerProvider = MoyaProvider<PgyerAPI>(plugins: [NetworkLoggerPlugin(verbose: false)])
-#endif
-    
-    private static let queue = DispatchQueue(label: "com.pgyer.queue")
-    
-    static func request<T: Mappable>(_ target: PgyerAPI,
-                        provider: MoyaProvider<PgyerAPI>? = nil,
-                        success successClosure: @escaping (T) -> Void,
-                        failure failureClosure: @escaping (DistributToolsError) -> Void)
-    {
-        if let reachabilityManager = AppDelegate.shared.reachabilityManager, reachabilityManager.isReachable {
-            let tprovider = provider ?? PgyerProvider
-            tprovider.request(target, callbackQueue: queue) { event in
-                switch event {
-                case let .success(response):
-                    do {
-                        // 过滤失败的 response
-                        let resp = try response.filterSuccessfulStatusCodes()
-                        // 解析 resp
-                        if let JSON = try resp.mapJSON() as? NSDictionary,
-                            let code = JSON["code"] as? Int64,
-                            let message = JSON["message"] as? String,
-                            let data = JSON["data"]
-                        {
-                            if code == DistributToolsErrorCode.success.rawValue {
-                                // ORM 转换
-                                if let object = Mapper<T>().map(JSONObject: data) {
-                                    main_async({
-                                        successClosure(object)
-                                    })
-                                } else {
-                                    main_async({
-                                        failureClosure(DistributToolsError.error(code: code, reason: message))
-                                    })
-                                }
-                            } else {
-                                main_async({
-                                    failureClosure(DistributToolsError.error(code: code, reason: message))
-                                })
-                            }
-                        } else {
-                            main_async({
-                                failureClosure(DistributToolsError.error(code: DistributToolsErrorCode.netError.rawValue, reason: DistributToolsErrorCode.netError.description))
-                            })
-                        }
-                    } catch let error {
-                        print("error = \(error.localizedDescription)")
-                    }
-                case let .failure(error):
-                    main_async({
-                        failureClosure(DistributToolsError.error(code: DistributToolsErrorCode.netError.rawValue, reason: error.localizedDescription))
-                    })
-                }
-            }
-        } else {
-            failureClosure(DistributToolsError.error(code: DistributToolsErrorCode.netError.rawValue, reason: "no network"))
-            
-//            var request = URLRequest(url: target.url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 60)
-//            request.addValue("private", forHTTPHeaderField: "Cache-Control")
-//            // CachedURLResponse
-//            if let response = URLCache.shared.cachedResponse(for: request) {
-//                do {
-//                    // 解析 resp
-//                    let JSON = try response.mapJSON() as! NSDictionary
-//                    let code = JSON["code"] as! Int64
-//                    let message = JSON["message"] as! String
-//                    let data = JSON["data"]
-//                    if code == Int64(0) {
-//                        // ORM 转换
-//                        if let object = Mapper<T>().map(JSONObject: data) {
-//                            successClosure(object)
-//                        } else {
-//                            failureClosure(DistributToolsError.error(code: code, reason: message))
-//                        }
-//                    } else {
-//                        failureClosure(DistributToolsError.error(code: code, reason: message))
-//                    }
-//                } catch {
-//                    
-//                }
-//            } else {
-//                failureClosure(DistributToolsError.error(code: DistributToolsErrorCode.netError.rawValue, reason: "no cache"))
-//            }
-        }
-    }
-    
-    static func requestArray<T: Mappable>(_ target: PgyerAPI,
-                             provider: MoyaProvider<PgyerAPI>? = nil,
-                             success successClosure: @escaping ([T]) -> Void,
-                             failure failureClosure: @escaping (DistributToolsError) -> Void)
-    {
-        if let reachabilityManager = AppDelegate.shared.reachabilityManager, reachabilityManager.isReachable {
-            let tprovider = provider ?? PgyerProvider
-            tprovider.request(target, callbackQueue: queue) { event in
-                switch event {
-                case let .success(response):
-                    do {
-                        // 过滤失败的 response
-                        let resp = try response.filterSuccessfulStatusCodes()
-                        
-                        // 解析 resp
-                        let JSON = try resp.mapJSON() as! NSDictionary
-                        let code = JSON["code"] as! Int64
-                        let message = JSON["message"] as! String
-                        let data = JSON["data"]
-                        if code == Int64(0) {
-                            // 缓存 resp
-//                            if let urlResponse = resp.response,
-//                                let urlRequest = resp.request {
-//                                let cachedURLResponse = CachedURLResponse(response: urlResponse, data: resp.data, userInfo: nil, storagePolicy: .allowed)
-//                                URLCache.shared.storeCachedResponse(cachedURLResponse, for: urlRequest)
+//extension PgyerAPI {
+//
+//#if DEBUG
+//    static let PgyerProvider = MoyaProvider<PgyerAPI>(plugins: [NetworkLoggerPlugin(verbose: true)])
+//#else
+//    static let PgyerProvider = MoyaProvider<PgyerAPI>(plugins: [NetworkLoggerPlugin(verbose: false)])
+//#endif
+//
+//    private static let queue = DispatchQueue(label: "com.pgyer.queue")
+//
+//    static func request<T: Mappable>(_ target: PgyerAPI,
+//                        provider: MoyaProvider<PgyerAPI>? = nil,
+//                        success successClosure: @escaping (T) -> Void,
+//                        failure failureClosure: @escaping (DistributToolsError) -> Void)
+//    {
+//        if let reachabilityManager = AppDelegate.shared.reachabilityManager, reachabilityManager.isReachable {
+//            let tprovider = provider ?? PgyerProvider
+//            tprovider.request(target, callbackQueue: queue) { event in
+//                switch event {
+//                case let .success(response):
+//                    do {
+//                        // 过滤失败的 response
+//                        let resp = try response.filterSuccessfulStatusCodes()
+//                        // 解析 resp
+//                        if let JSON = try resp.mapJSON() as? NSDictionary,
+//                            let code = JSON["code"] as? Int64,
+//                            let message = JSON["message"] as? String,
+//                            let data = JSON["data"]
+//                        {
+//                            if code == DistributToolsErrorCode.success.rawValue {
+//                                // ORM 转换
+//                                if let object = Mapper<T>().map(JSONObject: data) {
+//                                    main_async({
+//                                        successClosure(object)
+//                                    })
+//                                } else {
+//                                    main_async({
+//                                        failureClosure(DistributToolsError.error(code: code, reason: message))
+//                                    })
+//                                }
+//                            } else {
+//                                main_async({
+//                                    failureClosure(DistributToolsError.error(code: code, reason: message))
+//                                })
 //                            }
-                            
-                            // ORM 转换
-                            if let array = Mapper<T>().mapArray(JSONObject: data) {
-                                main_async({
-                                    successClosure(array)
-                                })
-                            } else {
-                                main_async({
-                                    failureClosure(DistributToolsError.error(code: code, reason: message))
-                                })
-                            }
-                        } else {
-                            main_async({
-                                failureClosure(DistributToolsError.error(code: code, reason: message))
-                            })
-                        }
-                    } catch {
-
-                    }
-                case let .failure(error):
-                    main_async({
-                        failureClosure(DistributToolsError.error(code: DistributToolsErrorCode.netError.rawValue, reason: error.localizedDescription))
-                    })
-                }
-            }
-        } else {
-            failureClosure(DistributToolsError.error(code: DistributToolsErrorCode.netError.rawValue, reason: "no network"))
-//            var request = URLRequest(url: target.url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 60)
-//            request.addValue("private", forHTTPHeaderField: "Cache-Control")
-//            // CachedURLResponse
-//            if let response = URLCache.shared.cachedResponse(for: request) {
-//                do {
-//                    // 解析 resp
-//                    let JSON = try response.mapJSON() as! NSDictionary
-//                    let code = JSON["code"] as! Int64
-//                    let message = JSON["message"] as! String
-//                    let data = JSON["data"]
-//                    if code == Int64(0) {
-//                        // ORM 转换
-//                        if let array = Mapper<T>().mapArray(JSONObject: data) {
-//                            successClosure(array)
 //                        } else {
-//                            failureClosure(DistributToolsError.error(code: code, reason: message))
+//                            main_async({
+//                                failureClosure(DistributToolsError.error(code: DistributToolsErrorCode.netError.rawValue, reason: DistributToolsErrorCode.netError.description))
+//                            })
 //                        }
-//                    } else {
-//                        failureClosure(DistributToolsError.error(code: code, reason: message))
+//                    } catch let error {
+//                        print("error = \(error.localizedDescription)")
 //                    }
-//                } catch {
-//                    
+//                case let .failure(error):
+//                    main_async({
+//                        failureClosure(DistributToolsError.error(code: DistributToolsErrorCode.netError.rawValue, reason: error.localizedDescription))
+//                    })
 //                }
-//            } else {
-//                failureClosure(DistributToolsError.error(code: DistributToolsErrorCode.netError.rawValue, reason: "no cache"))
 //            }
-        }
-    }
-    
-}
+//        } else {
+//            failureClosure(DistributToolsError.error(code: DistributToolsErrorCode.netError.rawValue, reason: "no network"))
+//
+////            var request = URLRequest(url: target.url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 60)
+////            request.addValue("private", forHTTPHeaderField: "Cache-Control")
+////            // CachedURLResponse
+////            if let response = URLCache.shared.cachedResponse(for: request) {
+////                do {
+////                    // 解析 resp
+////                    let JSON = try response.mapJSON() as! NSDictionary
+////                    let code = JSON["code"] as! Int64
+////                    let message = JSON["message"] as! String
+////                    let data = JSON["data"]
+////                    if code == Int64(0) {
+////                        // ORM 转换
+////                        if let object = Mapper<T>().map(JSONObject: data) {
+////                            successClosure(object)
+////                        } else {
+////                            failureClosure(DistributToolsError.error(code: code, reason: message))
+////                        }
+////                    } else {
+////                        failureClosure(DistributToolsError.error(code: code, reason: message))
+////                    }
+////                } catch {
+////
+////                }
+////            } else {
+////                failureClosure(DistributToolsError.error(code: DistributToolsErrorCode.netError.rawValue, reason: "no cache"))
+////            }
+//        }
+//    }
+//
+//    static func requestArray<T: Mappable>(_ target: PgyerAPI,
+//                             provider: MoyaProvider<PgyerAPI>? = nil,
+//                             success successClosure: @escaping ([T]) -> Void,
+//                             failure failureClosure: @escaping (DistributToolsError) -> Void)
+//    {
+//        if let reachabilityManager = AppDelegate.shared.reachabilityManager, reachabilityManager.isReachable {
+//            let tprovider = provider ?? PgyerProvider
+//            tprovider.request(target, callbackQueue: queue) { event in
+//                switch event {
+//                case let .success(response):
+//                    do {
+//                        // 过滤失败的 response
+//                        let resp = try response.filterSuccessfulStatusCodes()
+//
+//                        // 解析 resp
+//                        let JSON = try resp.mapJSON() as! NSDictionary
+//                        let code = JSON["code"] as! Int64
+//                        let message = JSON["message"] as! String
+//                        let data = JSON["data"]
+//                        if code == Int64(0) {
+//                            // 缓存 resp
+////                            if let urlResponse = resp.response,
+////                                let urlRequest = resp.request {
+////                                let cachedURLResponse = CachedURLResponse(response: urlResponse, data: resp.data, userInfo: nil, storagePolicy: .allowed)
+////                                URLCache.shared.storeCachedResponse(cachedURLResponse, for: urlRequest)
+////                            }
+//
+//                            // ORM 转换
+//                            if let array = Mapper<T>().mapArray(JSONObject: data) {
+//                                main_async({
+//                                    successClosure(array)
+//                                })
+//                            } else {
+//                                main_async({
+//                                    failureClosure(DistributToolsError.error(code: code, reason: message))
+//                                })
+//                            }
+//                        } else {
+//                            main_async({
+//                                failureClosure(DistributToolsError.error(code: code, reason: message))
+//                            })
+//                        }
+//                    } catch {
+//
+//                    }
+//                case let .failure(error):
+//                    main_async({
+//                        failureClosure(DistributToolsError.error(code: DistributToolsErrorCode.netError.rawValue, reason: error.localizedDescription))
+//                    })
+//                }
+//            }
+//        } else {
+//            failureClosure(DistributToolsError.error(code: DistributToolsErrorCode.netError.rawValue, reason: "no network"))
+////            var request = URLRequest(url: target.url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 60)
+////            request.addValue("private", forHTTPHeaderField: "Cache-Control")
+////            // CachedURLResponse
+////            if let response = URLCache.shared.cachedResponse(for: request) {
+////                do {
+////                    // 解析 resp
+////                    let JSON = try response.mapJSON() as! NSDictionary
+////                    let code = JSON["code"] as! Int64
+////                    let message = JSON["message"] as! String
+////                    let data = JSON["data"]
+////                    if code == Int64(0) {
+////                        // ORM 转换
+////                        if let array = Mapper<T>().mapArray(JSONObject: data) {
+////                            successClosure(array)
+////                        } else {
+////                            failureClosure(DistributToolsError.error(code: code, reason: message))
+////                        }
+////                    } else {
+////                        failureClosure(DistributToolsError.error(code: code, reason: message))
+////                    }
+////                } catch {
+////
+////                }
+////            } else {
+////                failureClosure(DistributToolsError.error(code: DistributToolsErrorCode.netError.rawValue, reason: "no cache"))
+////            }
+//        }
+//    }
+//
+//}
 
 //extension PgyerAPI {
 //    

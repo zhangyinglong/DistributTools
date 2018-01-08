@@ -10,20 +10,8 @@ import Moya
 import ObjectMapper
 import Result
 
-struct HttpRequest: TargetType {
-    
-    var baseURL: URL { return URL(string: "")! }
-    
-    var path: String { return "" }
-    
-    var method: Moya.Method { return Moya.Method.get }
-    
-    var sampleData: Data { return Data() }
-    
-    var task: Task { return .requestPlain }
-    
-    var headers: [String : String]? = nil
-
+public protocol HttpRequest: TargetType {
+    var provider: Any { get }
 }
 
 struct HttpResponse: Mappable {
@@ -40,21 +28,23 @@ struct HttpResponse: Mappable {
     }
 }
 
-class HttpClient<E> where E: Mappable {
+class HttpClient<T, E> where T: HttpRequest, E: Mappable {
     
     typealias ObjectCompletion = (Result<E, DistributToolsError>) -> Void
     typealias ArrayCompletion = (Result<[E], DistributToolsError>) -> Void
+    typealias HttpProvider = MoyaProvider<T>
     
     // 请求单个数据
-    class func request<T>(_ target: T, completion: @escaping ObjectCompletion) where T: TargetType
-    {
+    class func request(_ target: T, completion: @escaping ObjectCompletion) {
         if let reachabilityManager = AppDelegate.shared.reachabilityManager, reachabilityManager.isReachable
         {
-#if DEBUG
-            let provider = MoyaProvider<T>(plugins: [NetworkLoggerPlugin(verbose: true)])
-#else
-            let provider = MoyaProvider<T>(plugins: [NetworkLoggerPlugin(verbose: false)])
-#endif
+//#if DEBUG
+//            let client = MoyaProvider<T>(plugins: [NetworkLoggerPlugin(verbose: true)])
+//#else
+//            let client = MoyaProvider<T>(plugins: [NetworkLoggerPlugin(verbose: false)])
+//#endif
+            guard let provider = target.provider as? HttpProvider else { return }
+            
             provider.request(target, callbackQueue: DispatchQueue.main, progress: nil) { result in
                 switch result {
                 case .success(let response):
@@ -87,15 +77,16 @@ class HttpClient<E> where E: Mappable {
     }
     
     // 请求数组
-    class func requestArray<T>(_ target: T, completion: @escaping ArrayCompletion) where T: TargetType
-    {
+    class func requestArray(_ target: T, completion: @escaping ArrayCompletion) {
         if let reachabilityManager = AppDelegate.shared.reachabilityManager, reachabilityManager.isReachable
         {
-#if DEBUG
-            let provider = MoyaProvider<T>(plugins: [NetworkLoggerPlugin(verbose: true)])
-#else
-            let provider = MoyaProvider<T>(plugins: [NetworkLoggerPlugin(verbose: false)])
-#endif
+//#if DEBUG
+//            let provider = MoyaProvider<T>(plugins: [NetworkLoggerPlugin(verbose: true)])
+//#else
+//            let provider = MoyaProvider<T>(plugins: [NetworkLoggerPlugin(verbose: false)])
+//#endif
+            guard let provider = target.provider as? HttpProvider else { return }
+            
             provider.request(target, callbackQueue: DispatchQueue.main, progress: nil) { result in
                 switch result {
                 case .success(let response):
