@@ -8,7 +8,6 @@
 
 import UIKit
 import Material
-import ICDMaterialActivityIndicatorView
 import DZNEmptyDataSet
 import SafariServices
 import RxSwift

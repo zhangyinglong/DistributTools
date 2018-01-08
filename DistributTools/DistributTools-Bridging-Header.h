@@ -5,7 +5,6 @@
 //#import <sqlite3.h>
 //#import <YYModel/YYModel.h>
 #import <MLTransition/MLTransition.h>
-#import <ICDMaterialActivityIndicatorView/ICDMaterialActivityIndicatorView.h>
 //#import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
 
 #import "GlobalMacro.h"

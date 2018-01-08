@@ -8,7 +8,6 @@
 
 import UIKit
 import Material
-import ICDMaterialActivityIndicatorView
 import DZNEmptyDataSet
 import YYWebImage
 import RxSwift
@@ -31,8 +30,8 @@ class AndroidViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.backgroundColor = UIColor.clear
         tableView.showsVerticalScrollIndicator = false;
         tableView.separatorStyle = UITableViewCellSeparatorStyle.none
-//        tableView.delegate = self;
-//        tableView.dataSource = self
+        tableView.delegate = self;
+        tableView.dataSource = self
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
         self.view.addSubview(tableView)
@@ -46,8 +45,7 @@ class AndroidViewController: UIViewController, UITableViewDataSource, UITableVie
         
         let loadingView = DGElasticPullToRefreshLoadingViewBall();
         tableView.dg_addPullToRefreshWithActionHandler({ [weak self] () -> Void in
-            self!.fetchAppList()
-            self!.tableView.dg_stopLoading()
+            self?.fetchAppList()
             }, loadingView: loadingView)
         tableView.dg_setPullToRefreshBackgroundColor(tableView.backgroundColor!)
         tableView.dg_setPullToRefreshFillColor(Color.lightBlue.lighten1)
@@ -65,38 +63,20 @@ class AndroidViewController: UIViewController, UITableViewDataSource, UITableVie
         // Dispose of any resources that can be recreated.
     }
     
-//    func fetchAppList() {
-//        self.activityView.startAnimating()
-//        PgyerAPI.request(.listMyPublished(params: ["page":current_page]), success: { [weak self] (list: AppInfoList) -> Void in
-//            self?.activityView.stopAnimating()
-//            self?.dataSource = list.list.filter({ return $0.appType == .android })
-//            self?.tableView.reloadData()
-//        }) { [weak self] error in
-//            log.verbose(error)
-//            
-//            self?.activityView.stopAnimating()
-//            self?.failedLoading = true
-//        }
-//    }
-    
     func fetchAppList() {
-        let hud = HUD.showLoading()
-        PgyerAPI.request(.listMyPublished(params: ["page":current_page]), success: { [weak self] (list: AppInfoList) -> Void in
-            hud.hide(animated: true)
+        let target = PgyerAPI.listMyPublished(params: ["page":current_page])
+        HttpClient<AppInfo>.requestArray(target) { [weak self] result in
+            defer {
+                self?.tableView.dg_stopLoading()
+            }
             
-//            Observable.of(list.list.filter({ return $0.appType == .android })).bind(to: (self?.tableView.rx.items(cellIdentifier: "AppItemTableViewCell"))!) { index, model, cell in
-//                (cell as! AppItemTableViewCell).appInfo = model
-//                
-//                let line: UIView = UIView(frame: CGRect(x: 0, y: cell.contentView.height - 0.5, width: cell.contentView.width, height: 0.5))
-//                line.backgroundColor = UIColor(red: 213/255.0, green: 213/255.0, blue: 213/255.0, alpha: 1.0)
-//                cell.contentView.addSubview(line)
-//                cell.setNeedsLayout()
-//            }.addDisposableTo(disposeBag)
-        }) { [weak self] error in
-            log.verbose(error)
-            
-            hud.hide(animated: true)
-            self?.failedLoading = true
+            switch result {
+            case .success(let array):
+                self?.dataSource = array.filter({ return $0.appType == .android })
+                self?.tableView.reloadData()
+            case .failure(_):
+                self?.failedLoading = true
+            }
         }
     }
     
@@ -117,7 +97,6 @@ class AndroidViewController: UIViewController, UITableViewDataSource, UITableVie
         line.backgroundColor = UIColor(red: 213/255.0, green: 213/255.0, blue: 213/255.0, alpha: 1.0)
         cell.contentView.addSubview(line)
         cell.setNeedsLayout()
-        
         return cell
     }
     
@@ -125,14 +104,19 @@ class AndroidViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
-        
-//        let cell: AppItemTableViewCell = self.tableView(tableView, cellForRowAt: indexPath) as! AppItemTableViewCell
-//        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-//        let appDetailViewController: AppDetailViewController = AppDetailViewController()
-//        appDetailViewController.appItemModel = (self.dataSource.object(at: indexPath.row) as! AppItemModel)
-//        appDetailViewController.appItemModel.image = cell.appIcon.image
-//        appDelegate.getNavigationController().pushViewController(appDetailViewController, animated: true)
-        
+       
+        let appInfo = dataSource[indexPath.row]
+        let hud = HUD.showLoading()
+        PgyerAPI.request(.view(params: [ "aKey":appInfo.appKey]), success: { [weak self] (info: AppInfo) -> Void in
+            log.debug("info = \(info)")
+            
+            hud.hide(animated: true)
+            guard let url = info.shortcutUrl() else { return }
+            self?.openSafari(url: url)
+        }) { error in
+            log.verbose(error)
+            hud.hide(animated: true)
+        }
 //        UserDefaults.standard.set(appDetailViewController.appItemModel!.appUpdateModel.appBuildVersion,
 //                                  forKey: appDetailViewController.appItemModel!.appUpdateModel.appIdentifier)
     }

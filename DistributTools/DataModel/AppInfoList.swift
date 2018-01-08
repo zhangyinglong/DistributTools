@@ -9,15 +9,13 @@
 import ObjectMapper
 import RxSwift
 
-class AppInfoList: Mappable {
+struct AppInfoList: Mappable {
     
     var list = [AppInfo]()
     
-    required init?(map: Map) {
-        
-    }
+    init?(map: Map) { }
     
-    func mapping(map: Map) {
+    mutating func mapping(map: Map) {
         list <- map["list"]
     }
     

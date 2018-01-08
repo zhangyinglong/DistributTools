@@ -8,7 +8,6 @@
 
 import UIKit
 import Material
-import ICDMaterialActivityIndicatorView
 import MarqueeLabel
 import SafariServices
 
@@ -18,12 +17,12 @@ public extension UIViewController {
      构造公共导航栏
      */
     public func getNavigationBarView() -> NavigationBar {        
-        if ((self.navigationController?.navigationBar) != nil) {
-            self.navigationController?.navigationBar.isHidden = true
+        if let navigationBar = self.navigationController?.navigationBar {
+            navigationBar.isHidden = true
         }
         
-        let navigationBarView: NavigationBar = NavigationBar(frame: CGRect(x: 0, y: 0, width: view.width, height: 70))
-
+        let navigationBarView: NavigationBar = CustomNavigationBar(frame: .zero)
+        
         navigationBarView.translatesAutoresizingMaskIntoConstraints = false
 
         // Stylize.
@@ -34,18 +33,18 @@ public extension UIViewController {
         navigationBarView.barStyle = .default
 
         // Title label.
-        let item = UINavigationItem(title: "")
+//        let item = UINavigationItem(title: "")
 //        item.navigationItem.titleLabel.textColor = Color.white
 //        item.navigationItem.titleLabel.font = RobotoFont.regular(with: 20)
-        navigationBarView.pushItem(item, animated: true);
+//        navigationBarView.pushItem(item, animated: true);
         
         view.addSubview(navigationBarView)
-
+        
         // 布局
         Layout.top(parent: view, child: navigationBarView)
         Layout.horizontally(parent: view, child: navigationBarView)
-        Layout.height(parent: view, child: navigationBarView, height: 70)
-
+        Layout.height(parent: view, child: navigationBarView, height: NavigationBarHeight)
+        
         return navigationBarView
     }
 

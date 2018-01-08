@@ -8,6 +8,7 @@
 import Foundation
 import Moya
 import ObjectMapper
+import RxSwift
 
 public extension Response {
 

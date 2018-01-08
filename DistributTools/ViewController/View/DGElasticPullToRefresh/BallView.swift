@@ -140,6 +140,10 @@ class CircleLayer :CAShapeLayer {
 
 class SpinerLayer :CAShapeLayer {
     
+    override init(layer: Any) {
+        super.init(layer: layer)
+    }
+    
     init(superLayerFrame:CGRect, ballSize:CGFloat, color:UIColor = UIColor.white) {
         super.init()
         

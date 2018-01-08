@@ -8,7 +8,6 @@
 
 import UIKit
 import Material
-import ICDMaterialActivityIndicatorView
 import DZNEmptyDataSet
 import SafariServices
 
@@ -22,15 +21,15 @@ class IOSViewController: UIViewController {
         let tableView = UITableView(frame: CGRect(x: 0,
                                                   y: 0,
                                                   width: self.view.width,
-                                                  height: self.view.height - 70),
+                                                  height: self.view.height - NavigationBarHeight),
                                     style: UITableViewStyle.plain)
         tableView.register(AppItemTableViewCell.classForCoder(), forCellReuseIdentifier: "AppItemTableViewCell")
         tableView.backgroundColor = UIColor.clear
         tableView.showsVerticalScrollIndicator = false;
         tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         tableView.rowHeight =  AppItemTableViewCell.CellHeight
-//        tableView.delegate = self;
-//        tableView.dataSource = self
+        tableView.delegate = self;
+        tableView.dataSource = self
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
         self.view.addSubview(tableView)
@@ -45,25 +44,27 @@ class IOSViewController: UIViewController {
         let loadingView = DGElasticPullToRefreshLoadingViewBall();
         tableView.dg_addPullToRefreshWithActionHandler({ [weak self] () -> Void in
             self?.fetchAppList()
-            self?.tableView.dg_stopLoading()
         }, loadingView: loadingView)
         tableView.dg_setPullToRefreshBackgroundColor(tableView.backgroundColor!)
         tableView.dg_setPullToRefreshFillColor(Color.lightBlue.lighten1)
-
+        
         fetchAppList()
     }
 
     fileprivate func fetchAppList() {
-        let hud = HUD.showLoading()
-        PgyerAPI.request(.listMyPublished(params: ["page":current_page]), success: { [weak self] (list: AppInfoList) -> Void in
-            hud.hide(animated: true)
-            self?.dataSource = list.list.filter({ return $0.appType == .ios })
-            self?.tableView.reloadData()
-        }) { [weak self] error in
-            log.verbose(error)
-            
-            hud.hide(animated: true)
-            self?.failedLoading = true
+        let target = PgyerAPI.listMyPublished(params: ["page":current_page])
+        HttpClient<AppInfo>.requestArray(target) { [weak self] result in
+            defer {
+                self?.tableView.dg_stopLoading()
+            }
+
+            switch result {
+            case .success(let array):
+                self?.dataSource = array.filter({ return $0.appType == .ios })
+                self?.tableView.reloadData()
+            case .failure(_):
+                self?.failedLoading = true
+            }
         }
     }
     

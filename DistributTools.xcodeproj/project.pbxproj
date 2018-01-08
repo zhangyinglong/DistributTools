@@ -68,6 +68,12 @@
 		FC89C0101FFCDD85002A1C05 /* SGActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = FC89C00B1FFCDD85002A1C05 /* SGActionView.m */; };
 		FC89C0121FFCE82B002A1C05 /* MBProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC89C0111FFCE82B002A1C05 /* MBProgressHUD.framework */; };
 		FC89C0151FFCEE67002A1C05 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC89C0141FFCEE67002A1C05 /* HUD.swift */; };
+		FC89C0191FFF1BBC002A1C05 /* Cartography.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC89C0181FFF1BBC002A1C05 /* Cartography.framework */; };
+		FC89C01B1FFF1EC1002A1C05 /* UINavigationBarExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC89C01A1FFF1EC1002A1C05 /* UINavigationBarExt.swift */; };
+		FC89C01D1FFF1F89002A1C05 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC89C01C1FFF1F89002A1C05 /* Globals.swift */; };
+		FC89C01F1FFF2714002A1C05 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC89C01E1FFF2714002A1C05 /* Theme.swift */; };
+		FC89C0211FFF27AD002A1C05 /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC89C0201FFF27AC002A1C05 /* UIColorExt.swift */; };
+		FC89C0241FFF30E3002A1C05 /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC89C0231FFF30E3002A1C05 /* HttpClient.swift */; };
 		FC90B44F1E77DC3F007158AC /* PgyerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC90B44E1E77DC3F007158AC /* PgyerService.swift */; };
 		FCE3021B1E160C1100B0F103 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE3021A1E160C1100B0F103 /* AppDelegate.swift */; };
 		FCE302201E160C1100B0F103 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCE3021E1E160C1100B0F103 /* Main.storyboard */; };
@@ -173,6 +179,12 @@
 		FC89C00B1FFCDD85002A1C05 /* SGActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGActionView.m; sourceTree = "<group>"; };
 		FC89C0111FFCE82B002A1C05 /* MBProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MBProgressHUD.framework; path = Carthage/Build/iOS/MBProgressHUD.framework; sourceTree = "<group>"; };
 		FC89C0141FFCEE67002A1C05 /* HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
+		FC89C0181FFF1BBC002A1C05 /* Cartography.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cartography.framework; path = Carthage/Build/iOS/Cartography.framework; sourceTree = "<group>"; };
+		FC89C01A1FFF1EC1002A1C05 /* UINavigationBarExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationBarExt.swift; sourceTree = "<group>"; };
+		FC89C01C1FFF1F89002A1C05 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		FC89C01E1FFF2714002A1C05 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		FC89C0201FFF27AC002A1C05 /* UIColorExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExt.swift; sourceTree = "<group>"; };
+		FC89C0231FFF30E3002A1C05 /* HttpClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
 		FC90B44E1E77DC3F007158AC /* PgyerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PgyerService.swift; sourceTree = "<group>"; };
 		FCE302171E160C1100B0F103 /* DistributTools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DistributTools.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCE3021A1E160C1100B0F103 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -199,6 +211,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC89C0191FFF1BBC002A1C05 /* Cartography.framework in Frameworks */,
 				FC89C0121FFCE82B002A1C05 /* MBProgressHUD.framework in Frameworks */,
 				FC89C0001FFCC743002A1C05 /* MarqueeLabel.framework in Frameworks */,
 				FC89BFF51FFCC6F9002A1C05 /* MarqueeLabelSwift.framework in Frameworks */,
@@ -246,6 +259,7 @@
 		4D4527FFDA4EE1E0A8C251D1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FC89C0181FFF1BBC002A1C05 /* Cartography.framework */,
 				FC89C0111FFCE82B002A1C05 /* MBProgressHUD.framework */,
 				FC89BFFF1FFCC743002A1C05 /* MarqueeLabel.framework */,
 				FC89BFE61FFCC6F8002A1C05 /* Alamofire.framework */,
@@ -312,6 +326,8 @@
 		FC13B0391E1650C400F72138 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				FC89C0201FFF27AC002A1C05 /* UIColorExt.swift */,
+				FC89C01A1FFF1EC1002A1C05 /* UINavigationBarExt.swift */,
 				FC1AE7991ED98A8C00E90AB8 /* Response+ObjectMapper.swift */,
 				FC13B0651E179DC100F72138 /* NSTimerEx.swift */,
 				FC13B03A1E1650C400F72138 /* StringEx.swift */,
@@ -333,7 +349,7 @@
 				FC0602B21EE2AE2B0070A719 /* Model */,
 				FC0602B31EE2AE2B0070A719 /* Service */,
 				FC0602AF1EE2AB870070A719 /* ViewModel */,
-				FC13B0671E17DEF600F72138 /* VC */,
+				FC13B0671E17DEF600F72138 /* Controller */,
 				FC13B04E1E16CB7900F72138 /* View */,
 				FC13B04B1E16C79E00F72138 /* Cell */,
 			);
@@ -390,7 +406,7 @@
 			path = DGElasticPullToRefresh;
 			sourceTree = "<group>";
 		};
-		FC13B0671E17DEF600F72138 /* VC */ = {
+		FC13B0671E17DEF600F72138 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				FC13B0681E17DEF600F72138 /* AndroidViewController.swift */,
@@ -399,7 +415,7 @@
 				FC0602AD1EE2AA280070A719 /* RxTableViewController.swift */,
 				FC0602B61EE2B9AD0070A719 /* BaseTableViewController.swift */,
 			);
-			path = VC;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		FC44E61D1E18AE3900DBE8A7 /* DGRunkeeperSwitch */ = {
@@ -433,6 +449,14 @@
 				FC89C0141FFCEE67002A1C05 /* HUD.swift */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		FC89C0221FFF30B6002A1C05 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				FC89C0231FFF30E3002A1C05 /* HttpClient.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		FCE3020E1E160C1100B0F103 = {
@@ -505,10 +529,12 @@
 		FCE302531E16382C00B0F103 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				FC89C0131FFCE8DF002A1C05 /* Util */,
 				FCE3025B1E16382C00B0F103 /* GlobalMacro.h */,
 				FCE3025F1E16384A00B0F103 /* SynthesizeSingleton.h */,
+				FC89C01C1FFF1F89002A1C05 /* Globals.swift */,
+				FC89C0131FFCE8DF002A1C05 /* Util */,
 				FC13B0391E1650C400F72138 /* Extension */,
+				FC89C0221FFF30B6002A1C05 /* Network */,
 				FCE302671E163C3C00B0F103 /* Serviece */,
 			);
 			path = Core;
@@ -525,6 +551,7 @@
 				FC90B44E1E77DC3F007158AC /* PgyerService.swift */,
 				FC4F2AE01EDE92DF0010FA26 /* AsyncHelper.swift */,
 				FC0602B41EE2AF560070A719 /* RxPgyerService.swift */,
+				FC89C01E1FFF2714002A1C05 /* Theme.swift */,
 			);
 			path = Serviece;
 			sourceTree = "<group>";
@@ -833,6 +860,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/MarqueeLabel.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/MarqueeLabelSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/MBProgressHUD.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Cartography.framework",
 			);
 			name = "Copy Framework";
 			outputPaths = (
@@ -877,6 +905,7 @@
 				FC1AE7961ED95C9800E90AB8 /* CachedURLResponse+ObjectMapper.swift in Sources */,
 				FC13B06C1E17DEF600F72138 /* AndroidViewController.swift in Sources */,
 				FC89C00D1FFCDD85002A1C05 /* SGSheetMenu.m in Sources */,
+				FC89C01F1FFF2714002A1C05 /* Theme.swift in Sources */,
 				FC13B06E1E17DEF600F72138 /* IOSViewController.swift in Sources */,
 				FC13B05B1E16CB7900F72138 /* PRTweenTimingFunctions.m in Sources */,
 				FC8415BB1E6F0E8200E57F66 /* IdentifyProtocol.swift in Sources */,
@@ -886,12 +915,14 @@
 				FC0602B71EE2B9AD0070A719 /* BaseTableViewController.swift in Sources */,
 				FC0602AE1EE2AA280070A719 /* RxTableViewController.swift in Sources */,
 				FC13B0421E1650C400F72138 /* UIViewEx.swift in Sources */,
+				FC89C01B1FFF1EC1002A1C05 /* UINavigationBarExt.swift in Sources */,
 				FC13B0431E1650C400F72138 /* Utility.swift in Sources */,
 				FC4F2AE11EDE92DF0010FA26 /* AsyncHelper.swift in Sources */,
 				FC89C0151FFCEE67002A1C05 /* HUD.swift in Sources */,
 				FC13B03F1E1650C400F72138 /* StringEx.swift in Sources */,
 				FC0602B91EE2C7760070A719 /* ObservableEx.swift in Sources */,
 				FC13B0411E1650C400F72138 /* UIViewController+Base.swift in Sources */,
+				FC89C01D1FFF1F89002A1C05 /* Globals.swift in Sources */,
 				FC4F2ADD1EDE766C0010FA26 /* AppInfo.swift in Sources */,
 				FC89C0101FFCDD85002A1C05 /* SGActionView.m in Sources */,
 				FCE3026C1E163C3C00B0F103 /* AppInformationService.swift in Sources */,
@@ -904,7 +935,9 @@
 				FCE3026D1E163C3C00B0F103 /* ShareServiece.m in Sources */,
 				FC13B0401E1650C400F72138 /* UIDeviceEx.swift in Sources */,
 				FC89C00C1FFCDD85002A1C05 /* SGAlertMenu.m in Sources */,
+				FC89C0241FFF30E3002A1C05 /* HttpClient.swift in Sources */,
 				FC0602B51EE2AF560070A719 /* RxPgyerService.swift in Sources */,
+				FC89C0211FFF27AD002A1C05 /* UIColorExt.swift in Sources */,
 				FC1AE79A1ED98A8C00E90AB8 /* Response+ObjectMapper.swift in Sources */,
 				FCE3021B1E160C1100B0F103 /* AppDelegate.swift in Sources */,
 			);

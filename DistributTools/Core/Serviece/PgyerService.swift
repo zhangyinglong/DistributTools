@@ -8,6 +8,7 @@
 
 import Moya
 import ObjectMapper
+import Result
 import Dispatch
 import RxSwift
 
@@ -24,7 +25,7 @@ struct PgyerModule {
 }
 
 public enum PgyerAPI {
-    case listMyPublished(params: [String: Any])
+    case listMyPublished(params: [String: Int])
     case viewGroup(params: [String: Any])
     case view(params: [String: Any])
     case getAppKeyByShortcut(params: [String: Any])
@@ -100,6 +101,7 @@ extension PgyerAPI: TargetType {
     
     public var parameterEncoding: ParameterEncoding {
         return URLEncoding.default
+//        return JSONEncoding.default
     }
     
     public var task: Task {
@@ -108,17 +110,6 @@ extension PgyerAPI: TargetType {
         } else {
             return .requestPlain
         }
-        
-//        switch self {
-//        case .listMyPublished(_):
-//            return .request
-//        case .viewGroup(_):
-//            return .request
-//        case .view(_):
-//            return .request
-//        case .getAppKeyByShortcut(_):
-//            return .request
-//        }
     }
     
     public var sampleData: Data {
@@ -139,7 +130,7 @@ extension PgyerAPI {
     static let PgyerProvider = MoyaProvider<PgyerAPI>(plugins: [NetworkLoggerPlugin(verbose: false)])
 #endif
     
-    private static let queue = DispatchQueue(label: "PgyerAPI")
+    private static let queue = DispatchQueue(label: "com.pgyer.queue")
     
     static func request<T: Mappable>(_ target: PgyerAPI,
                         provider: MoyaProvider<PgyerAPI>? = nil,
@@ -154,25 +145,23 @@ extension PgyerAPI {
                     do {
                         // 过滤失败的 response
                         let resp = try response.filterSuccessfulStatusCodes()
-    
                         // 解析 resp
-                        let JSON = try resp.mapJSON() as! NSDictionary
-                        let code = JSON["code"] as! Int64
-                        let message = JSON["message"] as! String
-                        let data = JSON["data"]
-                        if code == Int64(0) {
-                            // 缓存 resp
-//                            if let urlResponse = resp.response,
-//                                let urlRequest = resp.request {
-//                                let cachedURLResponse = CachedURLResponse(response: urlResponse, data: resp.data, userInfo: nil, storagePolicy: .allowed)
-//                                URLCache.shared.storeCachedResponse(cachedURLResponse, for: urlRequest)
-//                            }
-//                            
-                            // ORM 转换
-                            if let object = Mapper<T>().map(JSONObject: data) {
-                                main_async({ 
-                                    successClosure(object)
-                                })
+                        if let JSON = try resp.mapJSON() as? NSDictionary,
+                            let code = JSON["code"] as? Int64,
+                            let message = JSON["message"] as? String,
+                            let data = JSON["data"]
+                        {
+                            if code == DistributToolsErrorCode.success.rawValue {
+                                // ORM 转换
+                                if let object = Mapper<T>().map(JSONObject: data) {
+                                    main_async({
+                                        successClosure(object)
+                                    })
+                                } else {
+                                    main_async({
+                                        failureClosure(DistributToolsError.error(code: code, reason: message))
+                                    })
+                                }
                             } else {
                                 main_async({
                                     failureClosure(DistributToolsError.error(code: code, reason: message))
@@ -180,11 +169,11 @@ extension PgyerAPI {
                             }
                         } else {
                             main_async({
-                                failureClosure(DistributToolsError.error(code: code, reason: message))
+                                failureClosure(DistributToolsError.error(code: DistributToolsErrorCode.netError.rawValue, reason: DistributToolsErrorCode.netError.description))
                             })
                         }
-                    } catch {
-
+                    } catch let error {
+                        print("error = \(error.localizedDescription)")
                     }
                 case let .failure(error):
                     main_async({

@@ -9,10 +9,13 @@
 import UIKit
 import Material
 import MarqueeLabel
+import Cartography
 
 class RootViewController: UIViewController, UIScrollViewDelegate {
 
-    private var navigationBarView: NavigationBar!
+    private lazy var navigationBarView: NavigationBar = {
+       return self.getNavigationBarView()
+    }()
     
     private var initialSelectedBackgroundViewFrame: CGRect!
     
@@ -68,8 +71,14 @@ class RootViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+    
+        self.switchControl.setSelectedIndex(0, animated: true)
+        self.switchControl.addTarget(self, action: #selector(onValueChaneged), for: .valueChanged)
+    }
+
+    override func loadView() {
+        super.loadView()
         
-        self.navigationBarView = self.getNavigationBarView()
         self.navigationBarView.addSubview(self.switchControl)
         self.view.addSubview(self.scrollView)
         
@@ -83,11 +92,8 @@ class RootViewController: UIViewController, UIScrollViewDelegate {
         
         self.addChildViewController(self.androidViewController)
         self.scrollView.addSubview(self.androidViewController.view)
-        
-        self.switchControl.setSelectedIndex(0, animated: true)
-        self.switchControl.addTarget(self, action: #selector(onValueChaneged), for: .valueChanged)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
