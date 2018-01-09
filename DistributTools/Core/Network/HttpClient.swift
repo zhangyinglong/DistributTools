@@ -38,11 +38,6 @@ class HttpClient<T, E> where T: HttpRequest, E: Mappable {
     class func request(_ target: T, completion: @escaping ObjectCompletion) {
         if let reachabilityManager = AppDelegate.shared.reachabilityManager, reachabilityManager.isReachable
         {
-//#if DEBUG
-//            let client = MoyaProvider<T>(plugins: [NetworkLoggerPlugin(verbose: true)])
-//#else
-//            let client = MoyaProvider<T>(plugins: [NetworkLoggerPlugin(verbose: false)])
-//#endif
             guard let provider = target.provider as? HttpProvider else { return }
             
             provider.request(target, callbackQueue: DispatchQueue.main, progress: nil) { result in
@@ -80,11 +75,6 @@ class HttpClient<T, E> where T: HttpRequest, E: Mappable {
     class func requestArray(_ target: T, completion: @escaping ArrayCompletion) {
         if let reachabilityManager = AppDelegate.shared.reachabilityManager, reachabilityManager.isReachable
         {
-//#if DEBUG
-//            let provider = MoyaProvider<T>(plugins: [NetworkLoggerPlugin(verbose: true)])
-//#else
-//            let provider = MoyaProvider<T>(plugins: [NetworkLoggerPlugin(verbose: false)])
-//#endif
             guard let provider = target.provider as? HttpProvider else { return }
             
             provider.request(target, callbackQueue: DispatchQueue.main, progress: nil) { result in

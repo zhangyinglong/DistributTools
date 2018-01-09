@@ -45,12 +45,12 @@ class AndroidViewController: UIViewController, UITableViewDataSource, UITableVie
         
         let loadingView = DGElasticPullToRefreshLoadingViewBall();
         tableView.dg_addPullToRefreshWithActionHandler({ [weak self] () -> Void in
-            self?.fetchAppList()
+            self?.vm.refreshCommand.onNext(())
             }, loadingView: loadingView)
         tableView.dg_setPullToRefreshBackgroundColor(tableView.backgroundColor!)
         tableView.dg_setPullToRefreshFillColor(Color.lightBlue.lighten1)
         
-        self.fetchAppList()
+        bindViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,6 +61,29 @@ class AndroidViewController: UIViewController, UITableViewDataSource, UITableVie
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    var vm : AppListViewModel!
+    fileprivate func bindViewModel() {
+        vm
+            .apps
+            .asObservable()
+            .observeOn(MainScheduler.asyncInstance)
+            .filter({ $0.count != 0 })
+            .subscribe(onNext: { [weak self] apps in
+                self?.dataSource = apps.filter({ return $0.appType == .android })
+                self?.tableView.reloadData()
+                self?.tableView.dg_stopLoading()
+            }).disposed(by: rx.disposeBag)
+        
+//        let initRefresh = Observable.just(())
+//        Observable
+//            .of(initRefresh)
+//            .merge()
+//            .share(replay: 1, scope: .whileConnected)
+//            .subscribe() { [weak self] _ in
+//                self?.vm.refreshCommand.onNext(())
+//            }.disposed(by: rx.disposeBag)
     }
     
     func fetchAppList() {

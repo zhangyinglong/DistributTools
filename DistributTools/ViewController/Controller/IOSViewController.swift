@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 import Material
 import DZNEmptyDataSet
 import SafariServices
@@ -43,17 +44,42 @@ class IOSViewController: UIViewController {
         
         let loadingView = DGElasticPullToRefreshLoadingViewBall();
         tableView.dg_addPullToRefreshWithActionHandler({ [weak self] () -> Void in
-            self?.fetchAppList()
+//            self?.fetchAppList()
+            self?.vm.refreshCommand.onNext(())
         }, loadingView: loadingView)
         tableView.dg_setPullToRefreshBackgroundColor(tableView.backgroundColor!)
         tableView.dg_setPullToRefreshFillColor(Color.lightBlue.lighten1)
         
-        fetchAppList()
+//        fetchAppList()
+        bindViewModel()
+    }
+    
+    var vm : AppListViewModel!
+    fileprivate func bindViewModel() {
+        vm
+            .apps
+            .asObservable()
+            .observeOn(MainScheduler.asyncInstance)
+            .filter({ $0.count != 0 })
+            .subscribe(onNext: { [weak self] apps in
+                self?.dataSource = apps.filter({ return $0.appType == .ios })
+                self?.tableView.reloadData()
+                self?.tableView.dg_stopLoading()
+            }).disposed(by: rx.disposeBag)
+    
+//        let initRefresh = Observable.just(())
+//        Observable
+//            .of(initRefresh)
+//            .merge()
+//            .share(replay: 1, scope: .whileConnected)
+//            .subscribe() { [weak self] _ in
+//                self?.vm.refreshCommand.onNext(())
+//            }.disposed(by: rx.disposeBag)
     }
 
     fileprivate func fetchAppList() {
         let target = PgyerAPI.listMyPublished(params: ["page":current_page])
-       HttpClient<PgyerAPI, AppInfo>.requestArray(target) { [weak self] result in
+        HttpClient<PgyerAPI, AppInfo>.requestArray(target) { [weak self] result in
             defer { self?.tableView.dg_stopLoading() }
 
             switch result {

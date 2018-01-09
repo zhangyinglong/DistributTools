@@ -7,23 +7,45 @@
 //
 
 import RxSwift
-import RxViewModel
+import NSObject_Rx
 
-final class AppListViewModel: RxViewModel {
+final class AppListViewModel: HasDisposeBag {
 
+    let refreshCommand = PublishSubject<Void>()
+    let loadCommand = PublishSubject<Void>()
+    let apps = Variable([AppInfo]())
+    
     var current_page = 0
     
-//    lazy var rx_apps: Observable<[AppInfo]> = {
-////        return self.loadData()
-//        return Observable<[AppInfo]>
-//    }()
+    init() {
+        refreshCommand.flatMapLatest { _ in AppListViewModel.loadApps(0) }
+            .subscribe(onNext: { [weak self] value in
+                self?.apps.value = value
+            }, onError: { error in
+                print("error = \(error.localizedDescription)")
+            }).disposed(by: disposeBag)
+        
+//        loadCommand
+    }
     
 }
 
 extension AppListViewModel {
     
-//    public func loadData() -> Observable<[AppInfo]> {
-//        return PgyerAPI.rx_requestArray(.listMyPublished(params: ["page":current_page]))
-//    }
+    static func loadApps(_ page: Int) -> Observable<[AppInfo]> {
+        return Observable.create({ (observer) -> Disposable in
+            let target = PgyerAPI.listMyPublished(params: ["page": page])
+            HttpClient<PgyerAPI, AppInfo>.requestArray(target) { result in
+                switch result {
+                case .success(let object):
+                    observer.onNext(object)
+                    observer.onCompleted()
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            }
+            return Disposables.create()
+        })
+    }
     
 }

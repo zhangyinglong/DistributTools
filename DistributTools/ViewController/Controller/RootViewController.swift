@@ -23,11 +23,21 @@ class RootViewController: UIViewController, UIScrollViewDelegate {
     
     private var isDragging: Bool = false
     
-    internal lazy var iosViewController: IOSViewController = IOSViewController()
+    fileprivate lazy var vm: AppListViewModel = AppListViewModel()
+    
+    internal lazy var iosViewController: IOSViewController = {
+        let vc = IOSViewController()
+        vc.vm = self.vm
+        return vc
+    }()
     
 //    internal lazy var iosViewController: RxTableViewController = RxTableViewController()
     
-    internal lazy var androidViewController: AndroidViewController = AndroidViewController()
+    internal lazy var androidViewController: AndroidViewController = {
+        let vc = AndroidViewController()
+        vc.vm = self.vm
+        return vc
+    }()
     
     private lazy var switchControl: DGRunkeeperSwitch = {
         var switchControl = DGRunkeeperSwitch(titles: ["iOS", "Android"])
@@ -74,6 +84,7 @@ class RootViewController: UIViewController, UIScrollViewDelegate {
     
         self.switchControl.setSelectedIndex(0, animated: true)
         self.switchControl.addTarget(self, action: #selector(onValueChaneged), for: .valueChanged)
+        self.vm.refreshCommand.onNext(())
     }
 
     override func loadView() {

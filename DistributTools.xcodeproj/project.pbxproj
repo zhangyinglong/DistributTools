@@ -12,7 +12,6 @@
 		D27E79F9D873BBE628570833 /* Pods_DistributToolsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A28164EA44C53B6AA3C8136E /* Pods_DistributToolsTests.framework */; };
 		FC0602AE1EE2AA280070A719 /* RxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0602AD1EE2AA280070A719 /* RxTableViewController.swift */; };
 		FC0602B11EE2ABC10070A719 /* AppListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0602B01EE2ABC10070A719 /* AppListViewModel.swift */; };
-		FC0602B51EE2AF560070A719 /* RxPgyerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0602B41EE2AF560070A719 /* RxPgyerService.swift */; };
 		FC0602B71EE2B9AD0070A719 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0602B61EE2B9AD0070A719 /* BaseTableViewController.swift */; };
 		FC0602B91EE2C7760070A719 /* ObservableEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0602B81EE2C7760070A719 /* ObservableEx.swift */; };
 		FC13B03F1E1650C400F72138 /* StringEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC13B03A1E1650C400F72138 /* StringEx.swift */; };
@@ -53,7 +52,6 @@
 		FC89BFF51FFCC6F9002A1C05 /* MarqueeLabelSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC89BFE21FFCC6F7002A1C05 /* MarqueeLabelSwift.framework */; };
 		FC89BFF61FFCC6F9002A1C05 /* ObjcExceptionBridging.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC89BFE31FFCC6F7002A1C05 /* ObjcExceptionBridging.framework */; };
 		FC89BFF71FFCC6F9002A1C05 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC89BFE41FFCC6F8002A1C05 /* Material.framework */; };
-		FC89BFF81FFCC6F9002A1C05 /* RxViewModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC89BFE51FFCC6F8002A1C05 /* RxViewModel.framework */; };
 		FC89BFF91FFCC6F9002A1C05 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC89BFE61FFCC6F8002A1C05 /* Alamofire.framework */; };
 		FC89BFFA1FFCC6F9002A1C05 /* DZNEmptyDataSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC89BFE71FFCC6F8002A1C05 /* DZNEmptyDataSet.framework */; };
 		FC89BFFB1FFCC6F9002A1C05 /* KeychainSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC89BFE81FFCC6F8002A1C05 /* KeychainSwift.framework */; };
@@ -74,6 +72,7 @@
 		FC89C01F1FFF2714002A1C05 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC89C01E1FFF2714002A1C05 /* Theme.swift */; };
 		FC89C0211FFF27AD002A1C05 /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC89C0201FFF27AC002A1C05 /* UIColorExt.swift */; };
 		FC89C0241FFF30E3002A1C05 /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC89C0231FFF30E3002A1C05 /* HttpClient.swift */; };
+		FC8B85DB2004B20D00E3906C /* NSObject_Rx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC8B85DA2004B20C00E3906C /* NSObject_Rx.framework */; };
 		FC90B44F1E77DC3F007158AC /* PgyerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC90B44E1E77DC3F007158AC /* PgyerService.swift */; };
 		FCE3021B1E160C1100B0F103 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE3021A1E160C1100B0F103 /* AppDelegate.swift */; };
 		FCE302201E160C1100B0F103 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCE3021E1E160C1100B0F103 /* Main.storyboard */; };
@@ -113,7 +112,6 @@
 		FB861397C8C8AE2DD0C4FA03 /* Pods_DistributToolsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DistributToolsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC0602AD1EE2AA280070A719 /* RxTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxTableViewController.swift; sourceTree = "<group>"; };
 		FC0602B01EE2ABC10070A719 /* AppListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppListViewModel.swift; sourceTree = "<group>"; };
-		FC0602B41EE2AF560070A719 /* RxPgyerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxPgyerService.swift; sourceTree = "<group>"; };
 		FC0602B61EE2B9AD0070A719 /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		FC0602B81EE2C7760070A719 /* ObservableEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableEx.swift; sourceTree = "<group>"; };
 		FC13B03A1E1650C400F72138 /* StringEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringEx.swift; sourceTree = "<group>"; };
@@ -185,6 +183,7 @@
 		FC89C01E1FFF2714002A1C05 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		FC89C0201FFF27AC002A1C05 /* UIColorExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExt.swift; sourceTree = "<group>"; };
 		FC89C0231FFF30E3002A1C05 /* HttpClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
+		FC8B85DA2004B20C00E3906C /* NSObject_Rx.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NSObject_Rx.framework; path = Carthage/Build/iOS/NSObject_Rx.framework; sourceTree = "<group>"; };
 		FC90B44E1E77DC3F007158AC /* PgyerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PgyerService.swift; sourceTree = "<group>"; };
 		FCE302171E160C1100B0F103 /* DistributTools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DistributTools.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCE3021A1E160C1100B0F103 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -211,6 +210,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC8B85DB2004B20D00E3906C /* NSObject_Rx.framework in Frameworks */,
 				FC89C0191FFF1BBC002A1C05 /* Cartography.framework in Frameworks */,
 				FC89C0121FFCE82B002A1C05 /* MBProgressHUD.framework in Frameworks */,
 				FC89C0001FFCC743002A1C05 /* MarqueeLabel.framework in Frameworks */,
@@ -226,7 +226,6 @@
 				FC89BFF41FFCC6F9002A1C05 /* YYModel.framework in Frameworks */,
 				FC89BFF61FFCC6F9002A1C05 /* ObjcExceptionBridging.framework in Frameworks */,
 				FC89BFF71FFCC6F9002A1C05 /* Material.framework in Frameworks */,
-				FC89BFF81FFCC6F9002A1C05 /* RxViewModel.framework in Frameworks */,
 				FC89BFF91FFCC6F9002A1C05 /* Alamofire.framework in Frameworks */,
 				FC89BFFA1FFCC6F9002A1C05 /* DZNEmptyDataSet.framework in Frameworks */,
 				FC89BFFB1FFCC6F9002A1C05 /* KeychainSwift.framework in Frameworks */,
@@ -259,6 +258,7 @@
 		4D4527FFDA4EE1E0A8C251D1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FC8B85DA2004B20C00E3906C /* NSObject_Rx.framework */,
 				FC89C0181FFF1BBC002A1C05 /* Cartography.framework */,
 				FC89C0111FFCE82B002A1C05 /* MBProgressHUD.framework */,
 				FC89BFFF1FFCC743002A1C05 /* MarqueeLabel.framework */,
@@ -550,7 +550,6 @@
 				FC8415BF1E6FF29E00E57F66 /* DistributToolsError.swift */,
 				FC90B44E1E77DC3F007158AC /* PgyerService.swift */,
 				FC4F2AE01EDE92DF0010FA26 /* AsyncHelper.swift */,
-				FC0602B41EE2AF560070A719 /* RxPgyerService.swift */,
 				FC89C01E1FFF2714002A1C05 /* Theme.swift */,
 			);
 			path = Serviece;
@@ -855,12 +854,12 @@
 				"$(SRCROOT)/Carthage/Build/iOS/YYModel.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/ObjectMapper.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Motion.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxViewModel.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/ZYLDataBase.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/MarqueeLabel.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/MarqueeLabelSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/MBProgressHUD.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Cartography.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/NSObject_Rx.framework",
 			);
 			name = "Copy Framework";
 			outputPaths = (
@@ -936,7 +935,6 @@
 				FC13B0401E1650C400F72138 /* UIDeviceEx.swift in Sources */,
 				FC89C00C1FFCDD85002A1C05 /* SGAlertMenu.m in Sources */,
 				FC89C0241FFF30E3002A1C05 /* HttpClient.swift in Sources */,
-				FC0602B51EE2AF560070A719 /* RxPgyerService.swift in Sources */,
 				FC89C0211FFF27AD002A1C05 /* UIColorExt.swift in Sources */,
 				FC1AE79A1ED98A8C00E90AB8 /* Response+ObjectMapper.swift in Sources */,
 				FCE3021B1E160C1100B0F103 /* AppDelegate.swift in Sources */,
